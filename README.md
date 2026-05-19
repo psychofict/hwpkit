@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.jpeg" alt="hwpkit — open-source HWP editor in Python" width="320">
+  <img src="https://raw.githubusercontent.com/psychofict/hwpkit/main/assets/logo.jpeg" alt="hwpkit — open-source HWP editor in Python" width="320">
 </p>
 
 <p align="center">
