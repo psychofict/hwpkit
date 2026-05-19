@@ -165,3 +165,9 @@ See [docs/GOTCHAS.md](docs/GOTCHAS.md). The short version:
 ## License
 
 MIT — see [LICENSE](LICENSE).
+
+---
+
+<p align="center">
+  Made by <a href="https://ebenworks.ebstar.co/">Ebenworks</a>
+</p>

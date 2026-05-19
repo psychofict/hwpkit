@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hwpkit"
-version = "0.1.3"
+version = "0.1.4"
 description = "Read, fill, and edit Korean HWP (Hancom Office) documents in Python — extract text for LLM/RAG, fill forms, and rewrite the binary without corrupting it."
 readme = "README.md"
 license = { text = "MIT" }
@@ -34,6 +34,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/psychofict/hwpkit"
 Issues = "https://github.com/psychofict/hwpkit/issues"
+Author = "https://ebenworks.ebstar.co/"
 
 [project.scripts]
 hwpkit-inspect = "hwpkit.inspect:main"
