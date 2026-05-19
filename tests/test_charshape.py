@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import struct
 
-from hwpedit import charshape as cs
-from hwpedit import records as R
+from hwpkit import charshape as cs
+from hwpkit import records as R
 
 
 def _make_charshape_body(face_ids=(0, 1, 2, 3, 4, 5, 6), base_size=1000) -> bytes:

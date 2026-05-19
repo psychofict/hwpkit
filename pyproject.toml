@@ -3,7 +3,7 @@ requires = ["setuptools>=64"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "hwpedit"
+name = "hwpkit"
 version = "0.1.0"
 description = "Edit HWP 5.0 (Hancom Office) files: inject, swap, and replace paragraph text without corrupting the document."
 readme = "README.md"
@@ -28,13 +28,13 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/psychofict/hwpedit"
-Issues = "https://github.com/psychofict/hwpedit/issues"
+Homepage = "https://github.com/psychofict/hwpkit"
+Issues = "https://github.com/psychofict/hwpkit/issues"
 
 [project.scripts]
-hwpedit-inspect = "hwpedit.inspect:main"
-hwpedit-text = "hwpedit.extract:main"
+hwpkit-inspect = "hwpkit.inspect:main"
+hwpkit-text = "hwpkit.extract:main"
 
 [tool.setuptools.packages.find]
-include = ["hwpedit*"]
+include = ["hwpkit*"]
 exclude = ["tests*", "examples*"]

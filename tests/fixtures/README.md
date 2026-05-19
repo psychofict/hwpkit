@@ -3,10 +3,10 @@
 Real HWP files aren't committed to this repo (see `.gitignore`).
 
 To run the end-to-end CFB round-trip test in `tests/test_roundtrip.py`,
-point `HWPEDIT_FIXTURE` at a local `.hwp` file:
+point `HWPKIT_FIXTURE` at a local `.hwp` file:
 
 ```bash
-HWPEDIT_FIXTURE=/path/to/some/blank.hwp pytest tests/test_roundtrip.py -v
+HWPKIT_FIXTURE=/path/to/some/blank.hwp pytest tests/test_roundtrip.py -v
 ```
 
 Without that env var, the round-trip test is skipped. The unit tests

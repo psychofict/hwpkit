@@ -26,7 +26,7 @@ from the file (not through olefile's parsed view) and preserve their
 in the output. The tree topology is already valid; reusing it
 sidesteps the comparison-rule trap entirely.
 
-`hwpedit.cfb.load` / `hwpedit.cfb.dump` does this.
+`hwpkit.cfb.load` / `hwpkit.cfb.dump` does this.
 
 ## 2. Why does my injected text render as a smashed single line?
 
@@ -49,7 +49,7 @@ The all-zero LineSeg is pyhwp's documented "dummy LineSeg" fallback
 (`hwp5/xmlmodel.py`, comment "더미 LineSeg를 만들어 준다"). Hancom
 treats it as a sentinel meaning "no cached layout, please recompute."
 
-`hwpedit.records.inject_text` and `replace_text` already do this
+`hwpkit.records.inject_text` and `replace_text` already do this
 whenever the character count changes. Only when the count stays
 identical (e.g. a single-character checkbox swap `□` → `☑`) is it safe
 to leave the LineSeg untouched — and that's what `swap_in_para_text`
@@ -80,14 +80,14 @@ the English part doesn't.
 to open 글자 모양, set 대표 글꼴 and check the "모든 언어" / per-language
 boxes to propagate.
 
-**Fix programmatically:** use `hwpedit.charshape.flatten_to_face` to
+**Fix programmatically:** use `hwpkit.charshape.flatten_to_face` to
 overwrite all 7 face_name_ids with the same face id. Operate on the
 DocInfo stream's parsed records, not BodyText.
 
 ```python
-from hwpedit import cfb, records
-from hwpedit.pipeline import docinfo_sid, file_header_compressed
-from hwpedit import charshape
+from hwpkit import cfb, records
+from hwpkit.pipeline import docinfo_sid, file_header_compressed
+from hwpkit import charshape
 
 entries = cfb.load("template.hwp")
 di_sid = docinfo_sid(entries)

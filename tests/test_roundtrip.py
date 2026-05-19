@@ -1,9 +1,9 @@
 """End-to-end CFB round-trip test against a real .hwp file.
 
-Skipped unless the HWPEDIT_FIXTURE env var points at an existing .hwp.
+Skipped unless the HWPKIT_FIXTURE env var points at an existing .hwp.
 Set this to one of your own templates locally to validate that:
 
-    HWPEDIT_FIXTURE=/path/to/template.hwp pytest tests/test_roundtrip.py
+    HWPKIT_FIXTURE=/path/to/template.hwp pytest tests/test_roundtrip.py
 """
 
 from __future__ import annotations
@@ -12,13 +12,13 @@ import os
 
 import pytest
 
-from hwpedit import cfb
+from hwpkit import cfb
 
-FIXTURE = os.environ.get("HWPEDIT_FIXTURE")
+FIXTURE = os.environ.get("HWPKIT_FIXTURE")
 
 pytestmark = pytest.mark.skipif(
     not FIXTURE or not os.path.exists(FIXTURE),
-    reason="set HWPEDIT_FIXTURE=path/to/file.hwp to enable",
+    reason="set HWPKIT_FIXTURE=path/to/file.hwp to enable",
 )
 
 

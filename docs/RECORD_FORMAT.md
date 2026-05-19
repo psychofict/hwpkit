@@ -29,7 +29,7 @@ Each record begins with a little-endian uint32:
 | 20–31 | `size`   |
 
 If `size == 0xFFF` (4095), the actual size is in the next 4 bytes,
-making the header 8 bytes total. `hwpedit.records` tracks this via
+making the header 8 bytes total. `hwpkit.records` tracks this via
 `force_extended_header` on records that need the long form.
 
 ## Paragraph records
@@ -54,7 +54,7 @@ A paragraph that is "empty" in Hancom's UI has:
 - **no** `PARA_TEXT` record
 
 To fill it: update char count, insert PARA_TEXT after PARA_HEADER,
-dummy-out PARA_LINE_SEG. `hwpedit.records.inject_text` handles all
+dummy-out PARA_LINE_SEG. `hwpkit.records.inject_text` handles all
 three. A paragraph that was *previously* non-empty is a different
 state — see [GOTCHAS.md §4](GOTCHAS.md#4-why-does-replace_text-corrupt-the-file).
 

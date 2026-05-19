@@ -1,8 +1,8 @@
 """Plain-text extraction from an HWP file.
 
 Usage:
-    python -m hwpedit.extract path/to/file.hwp
-    hwpedit-text path/to/file.hwp
+    python -m hwpkit.extract path/to/file.hwp
+    hwpkit-text path/to/file.hwp
 
 Walks every Section* stream under BodyText (in numeric order), decodes
 PARA_TEXT records, strips inline controls, and prints the result. For
@@ -46,7 +46,7 @@ def extract_text_from_hwp(path: str) -> str:
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if not argv or argv[0] in ("-h", "--help"):
-        print("usage: hwpedit-text <file.hwp>", file=sys.stderr)
+        print("usage: hwpkit-text <file.hwp>", file=sys.stderr)
         sys.exit(0 if argv and argv[0] in ("-h", "--help") else 2)
     print(extract_text_from_hwp(argv[0]))
 

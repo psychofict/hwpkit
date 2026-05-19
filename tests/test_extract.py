@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import struct
 
-from hwpedit import records as R
+from hwpkit import records as R
 
 
 def _make_record(tag: int, level: int, body: bytes) -> bytes:

@@ -2,7 +2,7 @@
 these exercise parse / serialize / inject_text / swap / replace on
 hand-built byte sequences.
 
-For an end-to-end test against a real HWP, set the HWPEDIT_FIXTURE env
+For an end-to-end test against a real HWP, set the HWPKIT_FIXTURE env
 var to a .hwp path; test_roundtrip.py will exercise the CFB round-trip
 when that's available.
 """
@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import struct
 
-from hwpedit import records as R
+from hwpkit import records as R
 
 
 def _make_record(tag: int, level: int, body: bytes) -> bytes:

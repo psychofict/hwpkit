@@ -8,9 +8,9 @@ changes made through the toolbar.
 
 Operate on records from a DocInfo stream:
 
-    from hwpedit import cfb, records
-    from hwpedit.pipeline import docinfo_sid, file_header_compressed
-    from hwpedit import charshape
+    from hwpkit import cfb, records
+    from hwpkit.pipeline import docinfo_sid, file_header_compressed
+    from hwpkit import charshape
 
     entries = cfb.load("template.hwp")
     di_sid = docinfo_sid(entries)

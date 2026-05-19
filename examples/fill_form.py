@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generic HWP form-fill example driven by a JSON spec.
 
-Use `hwpedit-inspect <template.hwp>` first to discover paragraph indices,
+Use `hwpkit-inspect <template.hwp>` first to discover paragraph indices,
 then describe the edits in a JSON file:
 
     {
@@ -22,7 +22,7 @@ from __future__ import annotations
 import json
 import sys
 
-from hwpedit import fill_hwp, inject_text, replace_text, swap_in_para_text
+from hwpkit import fill_hwp, inject_text, replace_text, swap_in_para_text
 
 
 def main(argv=None):

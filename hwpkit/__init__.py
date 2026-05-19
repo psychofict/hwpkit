@@ -1,8 +1,8 @@
-"""hwpedit — edit HWP 5.0 (Hancom Office) files in Python.
+"""hwpkit — edit HWP 5.0 (Hancom Office) files in Python.
 
 Quickstart:
 
-    from hwpedit import fill_hwp, inject_text, swap_in_para_text
+    from hwpkit import fill_hwp, inject_text, swap_in_para_text
 
     def edit(records):
         inject_text(records, 24, "홍길동")
