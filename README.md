@@ -1,8 +1,11 @@
 # hwpedit
 
-Edit HWP 5.0 (Hancom Office) files in Python. Inject text into empty
-paragraphs, swap substrings inside a cell, replace whole paragraphs —
-and have Hancom open the file without "corrupted" errors.
+[![CI](https://github.com/psychofict/hwpedit/actions/workflows/ci.yml/badge.svg)](https://github.com/psychofict/hwpedit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Edit HWP 5.0 (Hancom Office) `.hwp` files in Python. Inject text into
+empty paragraphs, swap substrings inside a cell, replace whole
+paragraphs — and have Hancom open the file without "corrupted" errors.
 
 HWP 5.0 is a Microsoft Compound File Binary (MS-CFB) container holding
 a `DocInfo` stream and one or more `Section` streams (raw deflate). The
@@ -11,13 +14,18 @@ same byte length, which is rarely true when you're inserting Korean
 text. `hwpedit` rewrites the whole CFB container while preserving the
 directory tree topology Hancom validates on open.
 
+**Scope:** targets HWP 5.0 (the binary `.hwp` format Hancom Office has
+shipped since 2010). The newer XML-based `.hwpx` format is not covered
+— for `.hwpx` you can edit the inner OWPML XML directly with any zip
++ XML library.
+
 ## Install
 
-```bash
-pip install hwpedit
-```
+Python 3.9 or newer. Not yet on PyPI; install from source:
 
-(or, until published: `pip install git+https://github.com/psychofict/hwpedit`)
+```bash
+pip install git+https://github.com/psychofict/hwpedit
+```
 
 ## Quickstart
 
@@ -58,13 +66,14 @@ print(extract_text_from_hwp("file.hwp"))
 For semantic HWP → XML (OWPML) conversion, use
 [pyhwp](https://github.com/mete0r/pyhwp) — that's a much bigger job.
 
-## Three operations
+## Edit operations
 
 | Function | When to use | What it does |
 |---|---|---|
 | `inject_text(records, i, text)` | The paragraph is empty (cell on a blank template) | Adds a PARA_TEXT record, updates the char count, and dummies the cached layout |
 | `swap_in_para_text(records, i, old, new)` | Same-length substring swap (checkboxes □ → ☑, single-char rewrites) | Pure byte replace; keeps the cached layout intact |
 | `replace_text(records, i, text)` | Paragraph has existing text you want to overwrite entirely | Rewrites PARA_TEXT, updates char count, dummies layout if length changed |
+| `charshape.flatten_to_face(rec, face_id)` | Mixed-script paragraph (Korean + English) won't pick up font changes | Sets all 7 per-script CharShape slots to the same face — see [GOTCHAS §3](docs/GOTCHAS.md#3-why-does-my-english-text-refuse-to-change-font-in-hancom) |
 
 ## What's tricky about HWP
 
