@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hwpedit"
+version = "0.1.0"
+description = "Edit HWP 5.0 (Hancom Office) files: inject, swap, and replace paragraph text without corrupting the document."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "psychofict" }]
+requires-python = ">=3.9"
+dependencies = ["olefile>=0.46"]
+keywords = ["hwp", "hancom", "korean", "office", "compound-file", "ole", "cfb"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Korean",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business",
+    "Topic :: Text Processing :: Markup",
+]
+
+[project.urls]
+Homepage = "https://github.com/psychofict/hwpedit"
+Issues = "https://github.com/psychofict/hwpedit/issues"
+
+[project.scripts]
+hwpedit-inspect = "hwpedit.inspect:main"
+
+[tool.setuptools.packages.find]
+include = ["hwpedit*"]
+exclude = ["tests*", "examples*"]
