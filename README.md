@@ -1,8 +1,14 @@
-# hwpkit
+<p align="center">
+  <img src="assets/logo.jpeg" alt="hwpkit — open-source HWP editor in Python" width="320">
+</p>
 
-[![CI](https://github.com/psychofict/hwpkit/actions/workflows/ci.yml/badge.svg)](https://github.com/psychofict/hwpkit/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+<p align="center">
+  <a href="https://pypi.org/project/hwpkit/"><img src="https://img.shields.io/pypi/v/hwpkit.svg" alt="PyPI"></a>
+  <a href="https://github.com/psychofict/hwpkit/actions/workflows/ci.yml"><img src="https://github.com/psychofict/hwpkit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+"></a>
+  <a href="https://pypi.org/project/hwpkit/"><img src="https://img.shields.io/pypi/dm/hwpkit.svg" alt="PyPI downloads"></a>
+</p>
 
 > **Read, fill, and edit Korean HWP (Hancom Office) documents in Python.**
 > Extract text for LLM / RAG pipelines, fill government & university
@@ -29,10 +35,10 @@ shipped since 2010). The newer XML-based `.hwpx` format is not covered
 
 ## Install
 
-Python 3.9 or newer. Not yet on PyPI; install from source:
+Python 3.9 or newer.
 
 ```bash
-pip install git+https://github.com/psychofict/hwpkit
+pip install hwpkit
 ```
 
 ## Quickstart
