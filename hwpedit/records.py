@@ -239,6 +239,71 @@ def replace_text(records, paragraph_index, text: str):
         _regenerate_lineseg(records, pr_idx, new_chars)
 
 
+def extract_text(records) -> str:
+    """Extract plain text from a parsed BodyText/Section* record list.
+
+    Returns one line per paragraph. Inline controls (tables, images,
+    footnote refs, etc.) are stripped — only literal character content
+    is returned. For semantic / structural conversion (HWP → XML / OWPML)
+    use pyhwp instead; that's a much bigger job and out of scope here.
+
+    Soft line breaks (0x0A) become \\n. Tabs (0x09) become \\t. The
+    paragraph-terminating 0x0D is stripped from each line.
+    """
+    para_indices = index_paragraphs(records)
+    lines = []
+    for pr_idx in para_indices:
+        pt_idx = _para_text_after(records, pr_idx)
+        if pt_idx is None:
+            lines.append("")
+        else:
+            lines.append(_extract_para_text(records[pt_idx]["body"]))
+    return "\n".join(lines)
+
+
+def _extract_para_text(body: bytes) -> str:
+    """Decode a PARA_TEXT body to plain text, stripping inline controls.
+
+    PARA_TEXT mixes literal UTF-16 characters with inline controls:
+      - 0x01..0x17 (except tab/LF/CR) are 'extended' controls that span
+        8 UTF-16 code units (16 bytes) — open ctrl_id + 6 payload units
+        + matching close ctrl_id. Skip the whole span. Covers section
+        defs, fields, table/drawing refs, header/footer refs, footnotes,
+        autonumber, page-number ctrl, bookmarks, overlapping ruby, etc.
+      - 0x09 = tab, 0x0A = soft line break, 0x0D = paragraph terminator
+      - 0x18 = soft hyphen (drop), 0x1E / 0x1F = fixed-width space → " "
+      - 0x00 = padding (drop)
+
+    We walk in code-unit space (not Python codepoint space) so the
+    16-byte extended-control width is honored even if surrogate pairs
+    appear in the paragraph.
+    """
+    out = []
+    i = 0
+    n = len(body) - (len(body) % 2)
+    while i < n:
+        cu = body[i] | (body[i + 1] << 8)
+        if cu == 0x09:
+            out.append("\t"); i += 2; continue
+        if cu in (0x0A, 0x0D):
+            out.append("\n"); i += 2; continue
+        if cu in (0x1E, 0x1F):
+            out.append(" "); i += 2; continue
+        if cu in (0x00, 0x18):
+            i += 2; continue
+        if 0x01 <= cu <= 0x17:
+            # Extended inline control: 8 code units total (16 bytes).
+            i += 16; continue
+        if 0xD800 <= cu <= 0xDBFF and i + 4 <= n:
+            # High surrogate — pair with the following low surrogate.
+            out.append(body[i:i + 4].decode("utf-16-le", errors="replace"))
+            i += 4
+        else:
+            out.append(body[i:i + 2].decode("utf-16-le", errors="replace"))
+            i += 2
+    return "".join(out).rstrip("\n")
+
+
 def describe(records, limit=None):
     """Return a human-readable dump (one line per record).
 

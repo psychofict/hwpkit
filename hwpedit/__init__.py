@@ -20,6 +20,7 @@ from .records import (
     compress,
     decompress,
     describe,
+    extract_text,
     index_paragraphs,
     inject_text,
     parse,
@@ -33,6 +34,7 @@ from .pipeline import (
     fill_hwp,
     section0_sid,
 )
+from .extract import extract_text_from_hwp
 
 __version__ = "0.1.0"
 
@@ -47,6 +49,8 @@ __all__ = [
     "swap_in_para_text",
     "replace_text",
     "describe",
+    "extract_text",
+    "extract_text_from_hwp",
     "index_paragraphs",
     "fill_hwp",
     "section0_sid",

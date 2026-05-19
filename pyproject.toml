@@ -33,6 +33,7 @@ Issues = "https://github.com/psychofict/hwpedit/issues"
 
 [project.scripts]
 hwpedit-inspect = "hwpedit.inspect:main"
+hwpedit-text = "hwpedit.extract:main"
 
 [tool.setuptools.packages.find]
 include = ["hwpedit*"]

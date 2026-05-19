@@ -41,6 +41,23 @@ hwpedit-inspect template.hwp
 Prints one line per record with a text preview, so you can identify
 which paragraph index is which form cell.
 
+## Extracting plain text
+
+```bash
+hwpedit-text file.hwp
+```
+
+Walks every section, strips inline controls (tables, images, footnote
+refs, etc.) and prints just the literal character content. From Python:
+
+```python
+from hwpedit import extract_text_from_hwp
+print(extract_text_from_hwp("file.hwp"))
+```
+
+For semantic HWP → XML (OWPML) conversion, use
+[pyhwp](https://github.com/mete0r/pyhwp) — that's a much bigger job.
+
 ## Three operations
 
 | Function | When to use | What it does |
@@ -73,7 +90,8 @@ See [docs/GOTCHAS.md](docs/GOTCHAS.md). The short version:
 
 | | `pyhwp` | `olefile` | `hwpedit` |
 |---|---|---|---|
-| Convert HWP → XML / text | ✅ | ❌ | ❌ |
+| Extract plain text | ✅ | ❌ | ✅ |
+| Convert HWP → XML / OWPML (semantic) | ✅ | ❌ | ❌ |
 | Read raw streams | ✅ | ✅ | ✅ |
 | Rewrite same-size stream | ❌ | ✅ | ✅ |
 | **Rewrite stream that grew/shrank** | ❌ | ❌ | ✅ |
