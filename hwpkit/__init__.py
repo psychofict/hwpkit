@@ -36,7 +36,7 @@ from .pipeline import (
 )
 from .extract import extract_text_from_hwp
 
-__version__ = "0.1.2"
+__version__ = "0.1.3"
 
 __all__ = [
     "load",
