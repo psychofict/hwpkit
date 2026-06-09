@@ -6,17 +6,19 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="A practical guide to reading, extracting text from, and editing Korean HWP and HWPX (Hancom Office) files in Python — without Hancom or Windows.">
+        <meta name="description" content="Build a Retrieval-Augmented Generation (RAG) pipeline over Korean HWP / HWPX documents in Python — from text extraction through chunking and embeddings.">
       
       
         <meta name="author" content="Ebenworks">
       
       
-        <link rel="canonical" href="https://hwpkit.ebstar.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/">
+        <link rel="canonical" href="https://hwpkit.ebstar.co/blog/building-a-rag-pipeline-over-korean-hwp-documents/">
       
       
+        <link rel="prev" href="../how-to-read-and-extract-text-from-korean-hwp-files-in-python/">
       
-        <link rel="next" href="../building-a-rag-pipeline-over-korean-hwp-documents/">
+      
+        <link rel="next" href="../read-extract-hwp-files-python-ko/">
       
       
         
@@ -27,7 +29,7 @@
     
     
       
-        <title>How to read and extract text from Korean HWP files in Python - hwpkit</title>
+        <title>Building a RAG pipeline over Korean HWP documents - hwpkit</title>
       
     
     
@@ -80,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-read-and-extract-text-from-korean-hwp-files-in-python" class="md-skip">
+        <a href="#building-a-rag-pipeline-over-korean-hwp-documents" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              How to read and extract text from Korean HWP files in Python
+              Building a RAG pipeline over Korean HWP documents
             
           </span>
         </div>
@@ -597,10 +599,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
+  <a href="#the-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Install
+        The pipeline
       
     </span>
   </a>
@@ -608,10 +610,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#extract-text-from-a-hwp-or-hwpx-file" class="md-nav__link">
+  <a href="#1-extract-text-from-the-hwp-corpus" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Extract text from a .hwp or .hwpx file
+        1. Extract text from the HWP corpus
       
     </span>
   </a>
@@ -619,10 +621,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#use-it-for-a-korean-rag-llm-pipeline" class="md-nav__link">
+  <a href="#2-chunk" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Use it for a Korean RAG / LLM pipeline
+        2. Chunk
       
     </span>
   </a>
@@ -630,10 +632,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#edit-a-document-fill-forms-tick-checkboxes" class="md-nav__link">
+  <a href="#3-embed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Edit a document: fill forms, tick checkboxes
+        3. Embed
       
     </span>
   </a>
@@ -641,10 +643,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#insert-a-seal-or-signature-image" class="md-nav__link">
+  <a href="#4-store-with-provenance" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Insert a seal or signature image
+        4. Store, with provenance
       
     </span>
   </a>
@@ -652,10 +654,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-not-just-automate-hancom" class="md-nav__link">
+  <a href="#5-retrieve-and-answer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why not just automate Hancom?
+        5. Retrieve and answer
       
     </span>
   </a>
@@ -663,21 +665,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-makes-editing-hwp-hard" class="md-nav__link">
+  <a href="#why-this-matters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What makes editing .hwp hard
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#wrapping-up" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Wrapping up
+        Why this matters
       
     </span>
   </a>
@@ -789,99 +780,111 @@
   
 
 
-<h1 id="how-to-read-and-extract-text-from-korean-hwp-files-in-python">How to read and extract text from Korean HWP files in Python<a class="headerlink" href="#how-to-read-and-extract-text-from-korean-hwp-files-in-python" title="Permanent link">&para;</a></h1>
-<p>If you've ever tried to open a Korean <code>.hwp</code> file in Python, you already know
-the problem: <code>python-docx</code> doesn't touch it, <code>pdfplumber</code> is for PDFs, and
-<code>unstructured</code> skips it. HWP — 한글, the Hangul Word Processor format from
-Hancom Office — is the default document format across Korean government,
-universities, courts, and enterprises, yet almost no portable tooling reads it.</p>
-<p>This guide shows how to <strong>read, extract text from, and edit both <code>.hwp</code> and
-<code>.hwpx</code> files in pure Python</strong> using <a href="https://github.com/psychofict/hwpkit"><code>hwpkit</code></a>
-— no Hancom installation and no Windows required, so it runs on a Linux
-server, in CI, or in a container.</p>
+<h1 id="building-a-rag-pipeline-over-korean-hwp-documents">Building a RAG pipeline over Korean HWP documents<a class="headerlink" href="#building-a-rag-pipeline-over-korean-hwp-documents" title="Permanent link">&para;</a></h1>
+<p>Most Retrieval-Augmented Generation (RAG) tutorials assume your corpus is PDFs
+or Markdown. But if you're building AI over <strong>Korean</strong> enterprise or government
+data, your corpus is <strong>HWP</strong> — the <code>.hwp</code> / <code>.hwpx</code> formats from Hancom Office.
+And that's where pipelines quietly break: the standard ingestion stack
+(<code>pdfplumber</code>, <code>python-docx</code>, <code>unstructured</code>) can't read HWP at all, so the
+documents never make it into your vector store.</p>
+<p>This guide walks through a complete RAG ingestion pipeline over Korean HWP
+documents in Python, using <a href="https://github.com/psychofict/hwpkit"><code>hwpkit</code></a> as
+the extraction step — pure Python, no Hancom, no Windows.</p>
 <!-- more -->
 
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
+<h2 id="the-pipeline">The pipeline<a class="headerlink" href="#the-pipeline" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HWP / HWPX  →  extract text (hwpkit)  →  chunk  →  embed  →  vector store  →  retrieve
 </code></pre></div>
-<p>The core install is just <code>olefile</code>; the <code>[full]</code> extra adds <code>lxml</code> (for
-<code>.hwpx</code>) and <code>Pillow</code> (for image insertion).</p>
-<h2 id="extract-text-from-a-hwp-or-hwpx-file">Extract text from a <code>.hwp</code> or <code>.hwpx</code> file<a class="headerlink" href="#extract-text-from-a-hwp-or-hwpx-file" title="Permanent link">&para;</a></h2>
-<p>The most common need — turning a Korean document into plain text for search,
-indexing, or an LLM:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>     <span class="c1"># works on .hwpx too</span>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<p>The only Korean-specific part is the first arrow. Everything after it is your
+normal RAG stack.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span><span class="w"> </span>sentence-transformers
 </code></pre></div>
-<p><code>extract_text_from_file</code> auto-detects the format by inspecting the container
-(not just the file extension), so a mixed folder of <code>.hwp</code> and <code>.hwpx</code> needs no
-branching. Behind the scenes it walks every section, decodes the text, and
-strips inline controls (tables, images, footnote markers, page-number fields,
-bookmarks) — returning clean, one-line-per-paragraph text with table-cell
-content included.</p>
-<p>From the command line:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>hwpkit-text<span class="w"> </span>contract.hwp
+<h2 id="1-extract-text-from-the-hwp-corpus">1. Extract text from the HWP corpus<a class="headerlink" href="#1-extract-text-from-the-hwp-corpus" title="Permanent link">&para;</a></h2>
+<p><code>extract_text_from_file</code> reads both <code>.hwp</code> and <code>.hwpx</code>, auto-detecting the
+format, and returns clean paragraph text (table cells included, inline controls
+stripped):</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="k">def</span><span class="w"> </span><span class="nf">load_corpus</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">root</span><span class="si">}</span><span class="s2">/**/*.hwp*&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp + .hwpx</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>            <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;skip </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>            <span class="k">continue</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="k">yield</span> <span class="n">path</span><span class="p">,</span> <span class="n">text</span>
 </code></pre></div>
-<h2 id="use-it-for-a-korean-rag-llm-pipeline">Use it for a Korean RAG / LLM pipeline<a class="headerlink" href="#use-it-for-a-korean-rag-llm-pipeline" title="Permanent link">&para;</a></h2>
-<p>This is exactly the preprocessing step most Korean retrieval pipelines are
-missing. Index a whole archive into a vector database:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;corpus/**/*.hwp*&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp and .hwpx</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">vector_db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc_id</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+<h2 id="2-chunk">2. Chunk<a class="headerlink" href="#2-chunk" title="Permanent link">&para;</a></h2>
+<p>Korean text chunks well on paragraph boundaries (which <code>hwpkit</code> preserves as
+newlines), with a token/character cap per chunk and a little overlap:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">chunk</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_chars</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span> <span class="n">overlap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="n">paras</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">buf</span><span class="p">,</span> <span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">[]</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paras</span><span class="p">:</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_chars</span> <span class="ow">and</span> <span class="n">buf</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="n">buf</span> <span class="o">=</span> <span class="n">buf</span><span class="p">[</span><span class="o">-</span><span class="n">overlap</span><span class="p">:]</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">buf</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">buf</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="n">p</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="k">if</span> <span class="n">buf</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="k">return</span> <span class="n">out</span>
 </code></pre></div>
-<p><code>hwpkit</code> has no LLM dependencies — it's just a clean Korean-text source you can
-feed into any chunker, embedding model, or context window.</p>
-<h2 id="edit-a-document-fill-forms-tick-checkboxes">Edit a document: fill forms, tick checkboxes<a class="headerlink" href="#edit-a-document-fill-forms-tick-checkboxes" title="Permanent link">&para;</a></h2>
-<p>Reading is only half of it. Korean offices live on <code>.hwp</code> <em>forms</em> —
-application forms, 결격사유 checklists, score sheets. <code>hwpkit</code> edits them
-without corrupting the file, using one object API for both formats:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
+<h2 id="3-embed">3. Embed<a class="headerlink" href="#3-embed" title="Permanent link">&para;</a></h2>
+<p>Use a multilingual or Korean-tuned embedding model so Korean queries match
+Korean passages:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">sentence_transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">SentenceTransformer</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;지원서.hwp&quot;</span><span class="p">)</span>              <span class="c1"># or &quot;지원서.hwpx&quot;</span>
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                          <span class="c1"># list paragraphs to find fields</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                   <span class="c1"># fill an empty cell</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 동의&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 동의&quot;</span><span class="p">)</span>   <span class="c1"># tick a checkbox</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>          <span class="c1"># overwrite a cell</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;작성완료.hwp&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">model</span> <span class="o">=</span> <span class="n">SentenceTransformer</span><span class="p">(</span><span class="s2">&quot;intfloat/multilingual-e5-base&quot;</span><span class="p">)</span>  <span class="c1"># handles Korean well</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="n">chunks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="c1"># e5 models expect a &quot;passage: &quot; / &quot;query: &quot; prefix</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;passage: </span><span class="si">{</span><span class="n">c</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">],</span> <span class="n">normalize_embeddings</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </code></pre></div>
-<h2 id="insert-a-seal-or-signature-image">Insert a seal or signature image<a class="headerlink" href="#insert-a-seal-or-signature-image" title="Permanent link">&para;</a></h2>
-<p>Forms often need a 도장/직인/서명 image, not just text:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;도장.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 30 mm wide, aspect preserved</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;날인완료.hwp&quot;</span><span class="p">)</span>
+<h2 id="4-store-with-provenance">4. Store, with provenance<a class="headerlink" href="#4-store-with-provenance" title="Permanent link">&para;</a></h2>
+<p>Keep the source path and chunk index as metadata so answers can cite the
+original document:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">records</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">load_corpus</span><span class="p">(</span><span class="s2">&quot;corpus&quot;</span><span class="p">):</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="n">chunks</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">vectors</span> <span class="o">=</span> <span class="n">embed</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">vectors</span><span class="p">)):</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="n">records</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">#</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="s2">&quot;vector&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">,</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="s2">&quot;text&quot;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            <span class="s2">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="s2">&quot;chunk&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">},</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>        <span class="p">})</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="n">vector_db</span><span class="o">.</span><span class="n">upsert</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>   <span class="c1"># Qdrant / pgvector / Chroma / FAISS — your choice</span>
 </code></pre></div>
-<h2 id="why-not-just-automate-hancom">Why not just automate Hancom?<a class="headerlink" href="#why-not-just-automate-hancom" title="Permanent link">&para;</a></h2>
-<p>The other way to script HWP is <code>pyhwpx</code>, which drives the Hancom Office app
-over Windows COM. It's powerful — but it <strong>requires Windows and a Hancom
-installation</strong>, so it can't run on a Linux server, in CI, or in a container.
-<code>hwpkit</code> is pure Python and runs anywhere. (<code>pyhwp</code> is excellent for the binary
-record format and HWP→XML conversion, but is read-oriented and doesn't handle
-<code>.hwpx</code>.) There's a full
-<a href="../../comparison/">comparison here</a>.</p>
-<h2 id="what-makes-editing-hwp-hard">What makes editing <code>.hwp</code> hard<a class="headerlink" href="#what-makes-editing-hwp-hard" title="Permanent link">&para;</a></h2>
-<p>A binary <code>.hwp</code> is a Microsoft Compound File Binary (MS-CFB) container of
-deflate-compressed record streams. The moment you insert Korean text, a stream
-changes byte length — and a naive rewrite fails, because Hancom validates the
-red-black-tree directory structure on open and re-renders text from a cached
-per-paragraph layout you have to invalidate correctly. <code>hwpkit</code> handles both.
-If you're going deeper, the <a href="../../GOTCHAS/">gotchas</a> and the
-<a href="../../OBJECT_MODEL/">object model</a> writeups cover the traps.</p>
-<h2 id="wrapping-up">Wrapping up<a class="headerlink" href="#wrapping-up" title="Permanent link">&para;</a></h2>
-<p>If you need to read, extract, or edit Korean HWP/HWPX documents from Python —
-for a RAG pipeline, a form-automation job, or a one-off migration — <code>hwpkit</code>
-does it in pure Python on any platform.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
+<h2 id="5-retrieve-and-answer">5. Retrieve and answer<a class="headerlink" href="#5-retrieve-and-answer" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">):</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="n">qv</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;query: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">normalize_embeddings</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>    <span class="n">hits</span> <span class="o">=</span> <span class="n">vector_db</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">qv</span><span class="p">,</span> <span class="n">top_k</span><span class="o">=</span><span class="n">k</span><span class="p">)</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="n">context</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">)</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">sources</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="p">[</span><span class="s2">&quot;metadata&quot;</span><span class="p">][</span><span class="s2">&quot;source&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hits</span><span class="p">}</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    <span class="k">return</span> <span class="n">context</span><span class="p">,</span> <span class="n">sources</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="n">context</span><span class="p">,</span> <span class="n">sources</span> <span class="o">=</span> <span class="n">search</span><span class="p">(</span><span class="s2">&quot;계약 해지 조건이 어떻게 되나요?&quot;</span><span class="p">)</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="c1"># feed `context` + the question to your LLM; cite `sources`</span>
+</code></pre></div>
+<h2 id="why-this-matters">Why this matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h2>
+<p>If your retrieval pipeline can't read HWP, it can't index Korean enterprise
+data — period. <code>hwpkit</code> is the missing ingestion step: a clean, dependency-light
+Korean-text source that drops into any RAG stack, on any platform, with no
+Hancom dependency. Pair it with a multilingual embedding model and you have a
+RAG system that actually covers the documents Korean organizations run on.</p>
+<p>See the <a href="../../quickstart/">quickstart</a> for more, or
+<a href="../how-to-read-and-extract-text-from-korean-hwp-files-in-python/">how to read HWP files in Python</a>
+for the extraction basics.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
 </code></pre></div>
 <ul>
 <li><strong>GitHub:</strong> <a href="https://github.com/psychofict/hwpkit">github.com/psychofict/hwpkit</a></li>
 <li><strong>Docs:</strong> <a href="https://hwpkit.ebstar.co">hwpkit.ebstar.co</a></li>
 </ul>
-<p>Questions or a format edge case <code>hwpkit</code> doesn't handle yet? Open an issue —
-feedback shapes the roadmap.</p>
 
 
 

@@ -639,6 +639,119 @@ binary-format internals behind <code>hwpkit</code>.</p>
           
           <li class="md-meta__item">
             
+              2 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="hwphwpx"><a class="toclink" href="read-extract-hwp-files-python-ko/">파이썬으로 HWP·HWPX 파일 읽기와 텍스트 추출하기</a></h2>
+<p>한국의 공공기관, 대학, 법원, 그리고 대부분의 기업은 <strong>HWP</strong>(한글 워드
+프로세서, 한컴오피스의 <code>.hwp</code>·<code>.hwpx</code> 형식)로 문서를 주고받습니다. 그런데
+<code>python-docx</code>, <code>pdfplumber</code>, <code>unstructured</code> 같은 도구는 HWP를 읽지 못하고,
+읽을 수 있는 <code>pyhwpx</code>는 <strong>윈도우 + 한컴 설치 + COM</strong>이 필요해 리눅스 서버나
+CI, 컨테이너에서는 쓸 수 없습니다.</p>
+<p>이 글에서는 <a href="https://github.com/psychofict/hwpkit"><code>hwpkit</code></a>으로 <strong><code>.hwp</code>와
+<code>.hwpx</code>를 순수 파이썬으로 읽고, 텍스트를 추출하고, 편집하는 방법</strong>을
+정리합니다. 한컴이나 윈도우 없이 어디서든 동작합니다.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="read-extract-hwp-files-python-ko/">
+          Continue reading
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://raw.githubusercontent.com/psychofict/hwpkit/main/assets/logo.jpeg" alt="Ebenworks">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-06-09 00:00:00+00:00">June 9, 2026</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="category/tutorials/" class="md-meta__link">Tutorials</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="building-a-rag-pipeline-over-korean-hwp-documents"><a class="toclink" href="building-a-rag-pipeline-over-korean-hwp-documents/">Building a RAG pipeline over Korean HWP documents</a></h2>
+<p>Most Retrieval-Augmented Generation (RAG) tutorials assume your corpus is PDFs
+or Markdown. But if you're building AI over <strong>Korean</strong> enterprise or government
+data, your corpus is <strong>HWP</strong> — the <code>.hwp</code> / <code>.hwpx</code> formats from Hancom Office.
+And that's where pipelines quietly break: the standard ingestion stack
+(<code>pdfplumber</code>, <code>python-docx</code>, <code>unstructured</code>) can't read HWP at all, so the
+documents never make it into your vector store.</p>
+<p>This guide walks through a complete RAG ingestion pipeline over Korean HWP
+documents in Python, using <a href="https://github.com/psychofict/hwpkit"><code>hwpkit</code></a> as
+the extraction step — pure Python, no Hancom, no Windows.</p>
+
+    
+      <nav class="md-post__action">
+        <a href="building-a-rag-pipeline-over-korean-hwp-documents/">
+          Continue reading
+        </a>
+      </nav>
+    
+    
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+      <nav class="md-post__authors md-typeset">
+        
+          <span class="md-author">
+            <img src="https://raw.githubusercontent.com/psychofict/hwpkit/main/assets/logo.jpeg" alt="Ebenworks">
+          </span>
+        
+      </nav>
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2026-06-09 00:00:00+00:00">June 9, 2026</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="category/tutorials/" class="md-meta__link">Tutorials</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
               3 min read
             
           </li>
