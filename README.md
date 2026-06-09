@@ -42,8 +42,9 @@ That's it. No Hancom license. No Windows. No headless office server.
 ## Why hwpkit
 
 - 📄 **Both formats, one API.** Binary `.hwp` (HWP 5.0) *and* XML `.hwpx`
-  (OWPML) — extract, edit, and insert images through the same calls. They're
-  two serializations of one document model, so you learn it once.
+  (OWPML) — extract, edit, and insert images through the same calls.
+  `open_document()` hands you the same object either way, so you learn it
+  once and never branch on format.
 - 🐍 **Pure Python, runs anywhere.** Linux, macOS, Windows, containers,
   Lambda. No Hancom, no `pywin32`, no COM, no LibreOffice subprocess.
 - 🤖 **Built for LLM / RAG.** Clean Korean text out of any `.hwp`/`.hwpx`,
@@ -85,41 +86,26 @@ text = extract_text_from_file("notice.hwpx")   # .hwp or .hwpx, auto-detected
 hwpkit-text contract.hwp | llm "Summarize the key obligations in Korean"
 ```
 
-**Fill a form (`.hwp`):**
+**Fill a form, tick a checkbox, stamp a seal — one API, either format:**
 
 ```python
-from hwpkit import fill_hwp, inject_text, swap_in_para_text, replace_text
+from hwpkit import open_document
 
-def edit(records):
-    inject_text(records, 24, "홍길동")                   # fill an empty cell
-    swap_in_para_text(records, 40, "□ 석사", "☑ 석사")   # tick a checkbox
-    replace_text(records, 75, "2026. 05. 19.")          # overwrite a cell
-
-fill_hwp("template.hwp", "out.hwp", edit)
+doc = open_document("template.hwp")            # or "template.hwpx" — auto-detected
+print(doc.describe())                           # list paragraphs to find field indices
+doc.inject_text(24, "홍길동")                    # fill an empty cell
+doc.swap_in_para_text(40, "□ 석사", "☑ 석사")    # tick a checkbox
+doc.replace_text(75, "2026. 05. 19.")           # overwrite a cell
+doc.place_image(42, "seal.png", width_mm=30)    # stamp a 도장 / signature
+doc.save("out.hwp")
 ```
 
-**Fill a form (`.hwpx`) — same verbs, mirrored API:**
+`open_document` returns an `HwpFile` or `HwpxFile` depending on the file —
+both expose the **same methods**, so your code never branches on format.
 
-```python
-from hwpkit import HwpxFile
-
-doc = HwpxFile.open("template.hwpx")
-doc.inject_text(24, "홍길동")
-doc.swap_in_para_text(40, "□ 석사", "☑ 석사")
-doc.replace_text(75, "2026. 05. 19.")
-doc.save("out.hwpx")
-```
-
-**Stamp a seal / signature:**
-
-```python
-from hwpkit import place_image           # binary .hwp
-place_image("form.hwp", "out.hwp", "seal.png", paragraph_index=42, width_mm=30)
-
-doc = HwpxFile.open("form.hwpx")          # or .hwpx
-doc.place_image(42, "seal.png", width_mm=30)
-doc.save("out.hwpx")
-```
+Prefer plain functions? The originals are still there:
+`fill_hwp(...)`, `inject_text(records, i, text)`, and the file-to-file
+`place_image("in.hwp", "out.hwp", "seal.png", paragraph_index=42)`.
 
 **Find which paragraph is which field:**
 

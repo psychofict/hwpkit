@@ -4,6 +4,28 @@ All notable changes to `hwpkit` are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] — 2026-06-09
+
+First stable release. The public API is now committed to Semantic
+Versioning: no breaking changes without a 2.0.
+
+### Added
+
+- **`open_document(path)`** — opens a `.hwp` or `.hwpx` (detected by
+  container content) and returns a uniform editor. One calling pattern
+  across both formats; downstream code never branches on format.
+- **`HwpFile`** — an object-oriented editor for binary `.hwp` mirroring
+  `HwpxFile`: `open` / `paragraphs` / `describe` / `paragraph_text` /
+  `inject_text` / `replace_text` / `swap_in_para_text` / `place_image` /
+  `save`. Paragraphs are indexed across all `BodyText` sections.
+
+### Notes
+
+- Backward compatible: the functional helpers (`fill_hwp`, the
+  `records`-list editors, the file-to-file `place_image`, and all
+  extraction functions) are unchanged and remain supported.
+- Development status promoted to Production/Stable.
+
 ## [0.2.1] — 2026-06-09
 
 Docs & discoverability — no code changes; fully compatible with 0.2.0.
@@ -79,6 +101,7 @@ model, now documented in [docs/OBJECT_MODEL.md](docs/OBJECT_MODEL.md).
   topology, per-script `CharShape` font control, and the `hwpkit-inspect`
   / `hwpkit-text` CLIs.
 
+[1.0.0]: https://github.com/psychofict/hwpkit/releases/tag/v1.0.0
 [0.2.1]: https://github.com/psychofict/hwpkit/releases/tag/v0.2.1
 [0.2.0]: https://github.com/psychofict/hwpkit/releases/tag/v0.2.0
 [0.1.4]: https://github.com/psychofict/hwpkit/releases/tag/v0.1.4

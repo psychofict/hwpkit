@@ -36,9 +36,10 @@ from .pipeline import (
 )
 from .extract import extract_text_from_hwp, extract_text_from_file
 from .hwpx import extract_text_from_hwpx, is_hwpx, HwpxFile, fill_hwpx
+from .hwp import HwpFile, open_document
 from .picture import place_image, register_bindata
 
-__version__ = "0.2.1"
+__version__ = "1.0.0"
 
 __all__ = [
     "load",
@@ -58,6 +59,8 @@ __all__ = [
     "is_hwpx",
     "HwpxFile",
     "fill_hwpx",
+    "HwpFile",
+    "open_document",
     "index_paragraphs",
     "fill_hwp",
     "place_image",

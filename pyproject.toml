@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hwpkit"
-version = "0.2.1"
+version = "1.0.0"
 description = "Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines."
 readme = "README.md"
 license = { text = "MIT" }
@@ -20,7 +20,7 @@ keywords = [
     "office", "compound-file", "ole", "cfb", "seal", "signature",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "Intended Audience :: Information Technology",
     "License :: OSI Approved :: MIT License",
