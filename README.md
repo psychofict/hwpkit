@@ -13,7 +13,14 @@
   <a href="https://pypi.org/project/hwpkit/"><img src="https://img.shields.io/pypi/v/hwpkit.svg" alt="PyPI"></a>
   <a href="https://pypi.org/project/hwpkit/"><img src="https://img.shields.io/pypi/pyversions/hwpkit.svg" alt="Python versions"></a>
   <a href="https://github.com/psychofict/hwpkit/actions/workflows/ci.yml"><img src="https://github.com/psychofict/hwpkit/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://hwpkit.ebstar.co/"><img src="https://img.shields.io/badge/docs-hwpkit.ebstar.co-1A6FC4.svg" alt="Documentation"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+</p>
+
+<p align="center">
+  📖 <b><a href="https://hwpkit.ebstar.co/">Documentation</a></b> ·
+  <a href="https://pypi.org/project/hwpkit/">PyPI</a> ·
+  <a href="CHANGELOG.md">Changelog</a>
 </p>
 
 ---

@@ -1,0 +1,91 @@
+site_name: hwpkit
+site_description: >-
+  Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files
+  in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures,
+  and feed Korean documents to LLM/RAG pipelines.
+site_url: https://hwpkit.ebstar.co/
+site_author: Ebenworks
+
+repo_url: https://github.com/psychofict/hwpkit
+repo_name: psychofict/hwpkit
+edit_uri: edit/main/docs/
+copyright: Made by Ebenworks · MIT licensed
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - hwpkit vs alternatives: comparison.md
+  - API reference: api.md
+  - Internals:
+    - Object model (HWP ↔ HWPX): OBJECT_MODEL.md
+    - Binary record format: RECORD_FORMAT.md
+    - Gotchas: GOTCHAS.md
+  - Changelog: changelog.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.snippets:
+      base_path: ["."]
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_root_heading: true
+            show_source: false
+            show_signature_annotations: true
+            separate_signature: true
+            members_order: source
+            heading_level: 3
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/psychofict/hwpkit
+      name: hwpkit on GitHub
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/hwpkit/
+      name: hwpkit on PyPI

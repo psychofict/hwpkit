@@ -42,7 +42,7 @@ Docs & discoverability — no code changes; fully compatible with 0.2.0.
 The dual-format release: `hwpkit` now spans both Hancom serializations —
 binary `.hwp` and XML `.hwpx` — through one API, and gains image
 insertion on both. `.hwp` and `.hwpx` are two encodings of one document
-model, now documented in [docs/OBJECT_MODEL.md](docs/OBJECT_MODEL.md).
+model, now documented in [docs/OBJECT_MODEL.md](https://github.com/psychofict/hwpkit/blob/main/docs/OBJECT_MODEL.md).
 
 ### Added
 
