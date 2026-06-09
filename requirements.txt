@@ -1,0 +1,4 @@
+# Docs site build dependencies (used by .github/workflows/docs.yml)
+mkdocs-material>=9.5
+mkdocstrings[python]>=0.24
+black>=24.0          # lets mkdocstrings format function signatures
