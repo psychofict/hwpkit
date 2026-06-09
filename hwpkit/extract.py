@@ -43,12 +43,22 @@ def extract_text_from_hwp(path: str) -> str:
     return "\n".join(parts)
 
 
+def extract_text_from_file(path: str) -> str:
+    """Extract plain text from either a binary `.hwp` or an XML `.hwpx`,
+    dispatching on the actual container (not just the file extension). One
+    entry point for both Hancom formats — handy for RAG over mixed corpora."""
+    from .hwpx import is_hwpx, extract_text_from_hwpx
+    if is_hwpx(path):
+        return extract_text_from_hwpx(path)
+    return extract_text_from_hwp(path)
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     if not argv or argv[0] in ("-h", "--help"):
-        print("usage: hwpkit-text <file.hwp>", file=sys.stderr)
+        print("usage: hwpkit-text <file.hwp|file.hwpx>", file=sys.stderr)
         sys.exit(0 if argv and argv[0] in ("-h", "--help") else 2)
-    print(extract_text_from_hwp(argv[0]))
+    print(extract_text_from_file(argv[0]))
 
 
 if __name__ == "__main__":

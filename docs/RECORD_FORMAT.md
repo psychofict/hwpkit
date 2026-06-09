@@ -4,6 +4,10 @@ Working notes for the record-level binary format used in `BodyText/Section*`
 and `DocInfo` streams. Distilled from pyhwp, the HWP 5.0 spec, and what
 Hancom actually accepts in practice.
 
+> For how these binary records line up with their HWPX (OWPML) twins —
+> and why the same `CharShape`, `BorderFill`, and HWPUNIT knowledge
+> applies to both formats — see [OBJECT_MODEL.md](OBJECT_MODEL.md).
+
 ## Stream compression
 
 `BodyText/Section*` and `DocInfo` are **raw deflate** (no zlib header).
@@ -90,3 +94,56 @@ Body layout — first 46 bytes (the rest is color / attr / border data):
 
 Per-script slot order: Hangul, Latin, Hanja, Japanese, Symbol, User,
 Other. See [GOTCHAS.md §3](GOTCHAS.md#3-why-does-my-english-text-refuse-to-change-font-in-hancom).
+
+## Embedded images
+
+Reverse-engineered from a real multi-image HWP. Inserting a picture
+touches **three** places — the CFB container, DocInfo, and BodyText.
+
+### 1. CFB container — the bytes
+
+The image bytes live in a stream `BinData/BIN%04d.<ext>` (decimal id,
+original extension preserved — e.g. `BIN0003.png`). Compression follows
+the `BIN_DATA` record's attribute bits (below); with the default the
+stream is raw-deflate like every other stream. Adding this stream means
+splicing a node into the directory red-black tree — use
+`cfb.add_stream` / `cfb.add_storage` (creates the `BinData` storage if
+absent). See [GOTCHAS.md §1](GOTCHAS.md#1-why-does-my-edited-hwp-open-as-corrupted).
+
+### 2. DocInfo — register the binary
+
+- **`ID_MAPPINGS` (tag `0x11`)**: an array of `int32` counts; **index 0
+  is the BinData count.** Increment it by one per image added.
+- **`BIN_DATA` (tag `0x12`)**, appended after the existing `BIN_DATA`
+  records (level 1), body:
+
+  | Offset | Type | Field |
+  |--------|------|-------|
+  | 0 | uint16 | `attr` — `0x0001` = type *embedding*. Low nibble = type (0 link / 1 embed / 2 storage); bits 4–5 = compress (0 default / 1 force / 2 none). |
+  | 2 | uint16 | `bin_id` — matches the `%04d` in the stream name |
+  | 4 | uint16 | `ext_len` — extension length in UTF-16 code units |
+  | 6 | UTF-16LE | extension, e.g. `png` |
+
+  Observed: `0100 0100 0300 6a0070006700` = embed, id 1, `"jpg"`.
+
+### 3. BodyText — the picture object + its anchor
+
+A picture is a **GSO** (general shape object). In the host paragraph:
+
+- **Inline anchor** in `PARA_TEXT`: an extended control occupying **8
+  code units (16 bytes)** — `[0x0B]` + ctrl-id `"gso "` stored reversed
+  (`20 6f 73 67`) + 8 zero bytes + `[0x0B]`. The `0x0B` count (here 8)
+  **plus the trailing `0x0D`** is the paragraph's `chars`. Replace
+  `PARA_LINE_SEG` with the 36-byte dummy ([GOTCHAS §2](GOTCHAS.md#2-why-does-my-injected-text-render-as-a-smashed-single-line)).
+- **`CTRL_HEADER` (`0x47`)**, ctrl-id `"gso "` — common object position/
+  size attributes (HWPUNIT).
+- **`SHAPE_COMPONENT` (`0x4C`)**, ctrl-id `"$pic"`, then 4×4 transform
+  matrices as IEEE-754 `double` (identity = `00 00 00 00 00 00 f0 3f`).
+- **`SHAPE_COMPONENT_PICTURE` (`0x55`)**, 91 bytes observed: border
+  line/fill, 4 corner points (image rect, HWPUNIT), crop, inner margins,
+  then the **`bin_id` (uint16) at offset 71**, then bright/contrast/
+  effect. Extents are pixels × 75 (see
+  [OBJECT_MODEL.md](OBJECT_MODEL.md#the-shared-unit-hwpunit--17200-inch)).
+
+So: register bytes (1+2), then anchor the GSO chain (3) in a target
+paragraph, with the picture record pointing back at the `bin_id`.

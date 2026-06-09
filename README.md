@@ -9,9 +9,10 @@
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.9+-blue.svg" alt="Python 3.9+"></a>
 </p>
 
-> **Read, fill, and edit Korean HWP (Hancom Office) documents in Python.**
-> Extract text for LLM / RAG pipelines, fill government & university
-> forms programmatically, and rewrite the binary without corrupting it.
+> **Read, fill, and edit Korean HWP / HWPX (Hancom Office) documents in Python.**
+> Extract text for LLM / RAG pipelines, fill government & university forms
+> (text *and* seal / signature images), and rewrite the binary without
+> corrupting it — one API across both `.hwp` and `.hwpx`.
 
 Korean government, universities, and most Korean enterprises run on
 `.hwp` — the binary format Hancom Office uses. If you need to ingest
@@ -27,17 +28,23 @@ you're inserting Korean text. `hwpkit` rewrites the whole CFB
 container while preserving the directory tree topology Hancom
 validates on open.
 
-**Scope:** targets HWP 5.0 (the binary `.hwp` format Hancom Office has
-shipped since 2010). The newer XML-based `.hwpx` format is not covered
-— for `.hwpx` you can edit the inner OWPML XML directly with any zip
-+ XML library.
+**Scope:** both Hancom formats are supported — the binary `.hwp` (the
+format Office has shipped since 2010) and the XML-based `.hwpx`. Across
+both you can extract text, edit text (inject / replace / swap), and
+insert images, through the same API; the binary side additionally
+rewrites the container without corrupting it. `.hwp` and `.hwpx` are two
+serializations of one document model
+([docs/OBJECT_MODEL.md](docs/OBJECT_MODEL.md)).
 
 ## Install
 
 Python 3.9 or newer.
 
 ```bash
-pip install hwpkit
+pip install hwpkit            # binary .hwp read + edit (core)
+pip install hwpkit[hwpx]      # + .hwpx text extraction (lxml)
+pip install hwpkit[image]     # + image insertion (Pillow)
+pip install hwpkit[full]      # everything
 ```
 
 ## Quickstart
@@ -76,8 +83,65 @@ from hwpkit import extract_text_from_hwp
 print(extract_text_from_hwp("file.hwp"))
 ```
 
+### Both formats, one call
+
+`.hwpx` (the XML format) extracts too — and `extract_text_from_file`
+auto-detects which container it's looking at (by content, not just the
+extension), so a mixed corpus of `.hwp` and `.hwpx` needs no branching:
+
+```python
+from hwpkit import extract_text_from_file   # .hwp or .hwpx
+print(extract_text_from_file("doc.hwpx"))
+
+from hwpkit import extract_text_from_hwpx    # .hwpx only (needs lxml)
+```
+
+The CLI dispatches the same way: `hwpkit-text file.hwp` or
+`hwpkit-text file.hwpx`. HWPX text includes table-cell content (one line
+per paragraph, document order).
+
 For semantic HWP → XML (OWPML) conversion, use
 [pyhwp](https://github.com/mete0r/pyhwp) — that's a much bigger job.
+
+## Editing `.hwpx`
+
+`.hwpx` files edit through `HwpxFile`, mirroring the binary edit verbs —
+so the same calling pattern works on both formats. There's no layout
+cache to manage; Hancom recomputes from the XML.
+
+```python
+from hwpkit import HwpxFile
+
+doc = HwpxFile.open("form.hwpx")
+print(doc.describe())                       # find paragraph indices
+doc.inject_text(1, "홍길동")                 # fill an empty paragraph
+doc.replace_text(12, "2026. 05. 19.")        # overwrite a cell
+doc.swap_in_para_text(8, "□ 동의", "☑ 동의")  # tick a checkbox
+doc.save("out.hwpx")
+```
+
+Or the one-call form, matching `fill_hwp`:
+
+```python
+from hwpkit import fill_hwpx
+fill_hwpx("form.hwpx", "out.hwpx", lambda d: d.replace_text(12, "홍길동"))
+```
+
+Paragraphs are indexed in document order across all sections (table-cell
+paragraphs included), the same convention as the binary side. Needs
+`lxml` (`pip install hwpkit[hwpx]`).
+
+Images insert into `.hwpx` too — `place_image` adds the `BinData/` part,
+registers it in `content.hpf` (`isEmbeded="1"`), and anchors an inline
+`<hp:pic>` in the target paragraph (extents = pixels × 75):
+
+```python
+doc = HwpxFile.open("form.hwpx")
+doc.place_image(42, "seal.png", width_mm=25)   # 25 mm wide, aspect preserved
+doc.save("out.hwpx")
+```
+
+Needs Pillow (`pip install hwpkit[image]`).
 
 ## For LLM / RAG pipelines
 
@@ -122,6 +186,26 @@ directly as input to chunkers, embeddings, or any LLM context.
 | `swap_in_para_text(records, i, old, new)` | Same-length substring swap (checkboxes □ → ☑, single-char rewrites) | Pure byte replace; keeps the cached layout intact |
 | `replace_text(records, i, text)` | Paragraph has existing text you want to overwrite entirely | Rewrites PARA_TEXT, updates char count, dummies layout if length changed |
 | `charshape.flatten_to_face(rec, face_id)` | Mixed-script paragraph (Korean + English) won't pick up font changes | Sets all 7 per-script CharShape slots to the same face — see [GOTCHAS §3](docs/GOTCHAS.md#3-why-does-my-english-text-refuse-to-change-font-in-hancom) |
+| `place_image(in, out, img, paragraph_index, width_mm=…)` | Stamp a seal / signature / stamp image into a form | Adds the image stream to the CFB, registers it in DocInfo, and anchors a picture object in the target paragraph — see below |
+
+## Inserting an image (seal / signature / stamp)
+
+Form filling often needs a 도장/직인/서명 image, not just text. `place_image`
+embeds a PNG/JPG and anchors it in a paragraph:
+
+```python
+from hwpkit import place_image
+
+place_image("form.hwp", "out.hwp", "seal.png",
+            paragraph_index=42, width_mm=30)   # 30 mm wide, aspect preserved
+```
+
+Under the hood this does the three things a picture needs — add a
+`BinData/BIN%04d.<ext>` stream to the container (via a red-black-tree
+node insert), bump the DocInfo BinData count + add a `BIN_DATA` record,
+and anchor a `gso` picture object in the paragraph. Image extents use
+HWPUNIT (pixels × 75); see [GOTCHAS §5](docs/GOTCHAS.md#5-why-does-my-embedded-image-come-out-the-wrong-size)
+and [RECORD_FORMAT.md](docs/RECORD_FORMAT.md#embedded-images).
 
 ## What's tricky about HWP
 
@@ -147,15 +231,21 @@ See [docs/GOTCHAS.md](docs/GOTCHAS.md). The short version:
 
 | | `pyhwp` | `olefile` | `hwpkit` |
 |---|---|---|---|
-| Extract plain text | ✅ | ❌ | ✅ |
+| Extract plain text (`.hwp`) | ✅ | ❌ | ✅ |
+| **Extract plain text (`.hwpx`)** | ❌ | ❌ | ✅ |
 | Convert HWP → XML / OWPML (semantic) | ✅ | ❌ | ❌ |
 | Read raw streams | ✅ | ✅ | ✅ |
 | Rewrite same-size stream | ❌ | ✅ | ✅ |
 | **Rewrite stream that grew/shrank** | ❌ | ❌ | ✅ |
+| **Insert an image (seal / signature)** | ❌ | ❌ | ✅ |
 | Hancom accepts the output | n/a | only if same-size | ✅ |
 
 ## See also
 
+- [docs/OBJECT_MODEL.md](docs/OBJECT_MODEL.md) — how the binary `.hwp`
+  records map onto their HWPX (OWPML) twins. `.hwp` and `.hwpx` are two
+  serializations of one document model, so `CharShape`/`BorderFill`/
+  HWPUNIT knowledge transfers between them.
 - [pyhwp](https://github.com/mete0r/pyhwp) — comprehensive HWP→XML
   converter. `hwpkit` learned the record format and the dummy-LineSeg
   trick from reading its source.

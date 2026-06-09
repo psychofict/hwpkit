@@ -129,3 +129,26 @@ Empirical bisect on one document:
 text intact, or use `" "` or `"—"` as a placeholder. If you're hitting
 "corrupted" on open and one of your edits is a replace-to-empty,
 remove it and bisect from there.
+
+## 5. Why does my embedded image come out the wrong size?
+
+You stored the image bytes correctly but guessed at the dimensions, so
+the picture renders tiny or gigantic. HWP stores picture extents in
+**HWPUNIT = 1/7200 inch** (the same unit as everything else — see
+[RECORD_FORMAT.md](RECORD_FORMAT.md)), not pixels. To convert a bitmap's
+native pixel size to its 1:1 document extent you assume the standard
+96 px/inch screen density:
+
+```
+1 px @ 96 dpi  =  7200 / 96  =  75 HWPUNIT
+original_extent (w, h)  =  (px_w × 75, px_h × 75)
+```
+
+So the picture's *original* size is `pixels × 75`; the *displayed* size
+is whatever you want, reached via the shape's current-size field (binary)
+or a scale matrix `display / native` (HWPX). A 200×80 px seal at 1:1 is
+`15000 × 6000` HWPUNIT (≈ 2.08 × 0.83 in).
+
+This is **not** an HWPX quirk — `75` is literally `7200/96`, so the same
+arithmetic drives binary `SHAPE_COMPONENT_PICTURE` extents and HWPX
+`<hp:orgSz>` alike. See [OBJECT_MODEL.md](OBJECT_MODEL.md#the-shared-unit-hwpunit--17200-inch).

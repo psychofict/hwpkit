@@ -18,3 +18,8 @@ htmlcov/
 # local test fixtures — keep real HWPs out of the repo
 tests/fixtures/*.hwp
 tests/fixtures/*.hwpx
+
+# secrets — never commit (PyPI recovery codes, tokens, credentials)
+*Recovery-Codes*
+*.pypirc
+.env
