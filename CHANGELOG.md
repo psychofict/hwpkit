@@ -4,6 +4,17 @@ All notable changes to `hwpkit` are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] — 2026-06-09
+
+Docs & discoverability — no code changes; fully compatible with 0.2.0.
+
+### Changed
+
+- Rewrote the README around both formats and the pure-Python / no-Hancom
+  story, with a clearer feature comparison and use-case framing.
+- Expanded PyPI keywords and classifiers (HWPX, OWPML, RAG/LLM, NLP, RPA,
+  Python 3.13); bumped Development Status to Beta; sharpened the summary.
+
 ## [0.2.0] — 2026-06-09
 
 The dual-format release: `hwpkit` now spans both Hancom serializations —
@@ -68,6 +79,7 @@ model, now documented in [docs/OBJECT_MODEL.md](docs/OBJECT_MODEL.md).
   topology, per-script `CharShape` font control, and the `hwpkit-inspect`
   / `hwpkit-text` CLIs.
 
+[0.2.1]: https://github.com/psychofict/hwpkit/releases/tag/v0.2.1
 [0.2.0]: https://github.com/psychofict/hwpkit/releases/tag/v0.2.0
 [0.1.4]: https://github.com/psychofict/hwpkit/releases/tag/v0.1.4
 [0.1.0]: https://github.com/psychofict/hwpkit/releases/tag/v0.1.0

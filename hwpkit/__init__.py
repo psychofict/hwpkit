@@ -38,7 +38,7 @@ from .extract import extract_text_from_hwp, extract_text_from_file
 from .hwpx import extract_text_from_hwpx, is_hwpx, HwpxFile, fill_hwpx
 from .picture import place_image, register_bindata
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __all__ = [
     "load",

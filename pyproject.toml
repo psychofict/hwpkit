@@ -4,21 +4,25 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hwpkit"
-version = "0.2.0"
-description = "Read, fill, and edit Korean HWP (Hancom Office) documents in Python — extract text for LLM/RAG, fill forms, and rewrite the binary without corrupting it."
+version = "0.2.1"
+description = "Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "psychofict" }]
 requires-python = ">=3.9"
 dependencies = ["olefile>=0.46"]
 keywords = [
-    "hwp", "hancom", "hancom-office", "korean", "hangul",
-    "office", "compound-file", "ole", "cfb", "hwp5",
-    "rag", "llm", "text-extraction", "form-automation", "document-processing",
+    "hwp", "hwpx", "hancom", "hancom-office", "hangul", "korean",
+    "hwp5", "owpml", "hwp-python", "read-hwp", "parse-hwp", "hwp-parser",
+    "hwp-to-text", "extract-text", "text-extraction", "document-processing",
+    "rag", "llm", "retrieval", "embeddings", "korean-nlp", "nlp",
+    "form-automation", "form-filling", "rpa", "e-government",
+    "office", "compound-file", "ole", "cfb", "seal", "signature",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
     "License :: OSI Approved :: MIT License",
     "Natural Language :: Korean",
     "Operating System :: OS Independent",
@@ -27,8 +31,13 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Office/Business",
+    "Topic :: Office/Business :: Office Suites",
     "Topic :: Text Processing :: Markup",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
 [project.optional-dependencies]
