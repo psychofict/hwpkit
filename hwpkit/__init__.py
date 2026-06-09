@@ -34,9 +34,11 @@ from .pipeline import (
     fill_hwp,
     section0_sid,
 )
-from .extract import extract_text_from_hwp
+from .extract import extract_text_from_hwp, extract_text_from_file
+from .hwpx import extract_text_from_hwpx, is_hwpx, HwpxFile, fill_hwpx
+from .picture import place_image, register_bindata
 
-__version__ = "0.1.4"
+__version__ = "0.2.0"
 
 __all__ = [
     "load",
@@ -51,8 +53,15 @@ __all__ = [
     "describe",
     "extract_text",
     "extract_text_from_hwp",
+    "extract_text_from_hwpx",
+    "extract_text_from_file",
+    "is_hwpx",
+    "HwpxFile",
+    "fill_hwpx",
     "index_paragraphs",
     "fill_hwp",
+    "place_image",
+    "register_bindata",
     "section0_sid",
     "docinfo_sid",
     "file_header_compressed",

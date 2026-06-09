@@ -375,6 +375,166 @@ def dump(entries, out_path, target_sid_to_replace=None, new_data=None):
         f.write(out)
 
 
+# --------------------------------------------------------------------------- #
+#  Adding entries: red-black-tree insert                                        #
+#                                                                               #
+#  `dump` re-lays the whole container from `entries`, copying each entry's      #
+#  left/right/child/color byte-for-byte — so it already emits new streams. The  #
+#  only thing missing to ADD an entry (not just replace one) is splicing a node #
+#  into the sibling red-black tree correctly. Hancom validates the tree on      #
+#  open, so we keep the full RB invariants, not just BST ordering.              #
+#                                                                               #
+#  Sibling ordering is MS-CFB §2.6.4: compare by UTF-16 name length first,      #
+#  then by uppercased code points. (ASCII stream names like "BIN0003" are       #
+#  unaffected by the uppercase fold; the key handles non-ASCII by length.)      #
+# --------------------------------------------------------------------------- #
+RED = 0
+BLACK = 1
+
+
+def _name_key(name):
+    return (len(name), name.upper())
+
+
+def _is_red(entries, sid):
+    return sid != NOSTREAM and entries[sid].color == RED
+
+
+def _balance(entries, sid):
+    """Okasaki red-black balance: rebalance a black node whose subtree may have
+    a red-red violation one level down. Returns the (possibly new) subtree root.
+    Restructures the 4 red-red configurations into a red parent with two black
+    children; leaves any other shape untouched."""
+    n = entries[sid]
+    if n.color != BLACK:
+        return sid
+    L, R = n.left, n.right
+    # left-left and left-right
+    if _is_red(entries, L):
+        LL, LR = entries[L].left, entries[L].right
+        if _is_red(entries, LL):
+            #        sid(B)              L(R)
+            #       /     \            /     \
+            #     L(R)     d   =>    LL(B)   sid(B)
+            #    /   \                       /   \
+            #  LL(R)  c                     c     d
+            x, y, z = LL, L, sid
+            a, b, c, d = entries[LL].left, entries[LL].right, LR, R
+            return _mk(entries, y, _mkB(entries, x, a, b), _mkB(entries, z, c, d))
+        if _is_red(entries, LR):
+            x, y, z = L, LR, sid
+            a, b, c, d = entries[L].left, entries[LR].left, entries[LR].right, R
+            return _mk(entries, y, _mkB(entries, x, a, b), _mkB(entries, z, c, d))
+    # right-left and right-right
+    if _is_red(entries, R):
+        RL, RR = entries[R].left, entries[R].right
+        if _is_red(entries, RL):
+            x, y, z = sid, RL, R
+            a, b, c, d = L, entries[RL].left, entries[RL].right, entries[R].right
+            return _mk(entries, y, _mkB(entries, x, a, b), _mkB(entries, z, c, d))
+        if _is_red(entries, RR):
+            x, y, z = sid, R, RR
+            a, b, c, d = L, entries[R].left, entries[RR].left, entries[RR].right
+            return _mk(entries, y, _mkB(entries, x, a, b), _mkB(entries, z, c, d))
+    return sid
+
+
+def _mk(entries, sid, left, right):
+    """Make `sid` a RED node with the given children; return sid."""
+    entries[sid].left = left
+    entries[sid].right = right
+    entries[sid].color = RED
+    return sid
+
+
+def _mkB(entries, sid, left, right):
+    """Make `sid` a BLACK node with the given children; return sid."""
+    entries[sid].left = left
+    entries[sid].right = right
+    entries[sid].color = BLACK
+    return sid
+
+
+def _rb_insert(entries, root, new_sid):
+    """Insert new_sid (a fresh RED node) into the sibling tree rooted at `root`.
+    Returns the new tree root sid (always recolored BLACK)."""
+    key = _name_key(entries[new_sid].name)
+
+    def ins(sid):
+        if sid == NOSTREAM:
+            return new_sid
+        nk = _name_key(entries[sid].name)
+        if key < nk:
+            entries[sid].left = ins(entries[sid].left)
+            return _balance(entries, sid)
+        elif key > nk:
+            entries[sid].right = ins(entries[sid].right)
+            return _balance(entries, sid)
+        raise ValueError(f"duplicate entry name {entries[sid].name!r}")
+
+    root = ins(root)
+    entries[root].color = BLACK
+    return root
+
+
+def _find_child_sid(entries, parent_sid, name):
+    """Walk a storage's sibling tree for a child by name; None if absent."""
+    sid = entries[parent_sid].child
+    key = _name_key(name)
+    while sid != NOSTREAM:
+        nk = _name_key(entries[sid].name)
+        if key == nk and entries[sid].name == name:
+            return sid
+        sid = entries[sid].left if key < nk else entries[sid].right
+    return None
+
+
+def _new_entry(entries, name, etype, data):
+    new_sid = max(entries.keys()) + 1
+    entries[new_sid] = DirEntryOut(
+        name=name, etype=etype, color=RED,
+        left=NOSTREAM, right=NOSTREAM, child=NOSTREAM,
+        clsid=b"\x00" * 16, state_bits=b"\x00" * 4,
+        ctime=b"\x00" * 8, mtime=b"\x00" * 8,
+        data=data,
+    )
+    return new_sid
+
+
+def add_storage(entries, name, parent_sid=0):
+    """Add a storage (folder) entry under `parent_sid` (default root). Returns
+    its sid. No-op-safe: if a child of that name already exists, returns it."""
+    existing = _find_child_sid(entries, parent_sid, name)
+    if existing is not None:
+        return existing
+    sid = _new_entry(entries, name, etype=1, data=None)
+    entries[parent_sid].child = _rb_insert(entries, entries[parent_sid].child, sid)
+    return sid
+
+
+def add_stream(entries, name, data, parent_sid=0):
+    """Add a stream entry named `name` holding `data` (bytes) under `parent_sid`
+    (default root). Returns the new sid. Raises if the name already exists."""
+    if _find_child_sid(entries, parent_sid, name) is not None:
+        raise ValueError(f"a child named {name!r} already exists under sid {parent_sid}")
+    sid = _new_entry(entries, name, etype=2, data=data)
+    entries[parent_sid].child = _rb_insert(entries, entries[parent_sid].child, sid)
+    return sid
+
+
+def find_entry(entries, *path):
+    """Resolve a storage/stream path (e.g. find_entry(e, "BinData", "BIN0001.png"))
+    to its sid, or None. Root children are looked up under sid 0."""
+    parent = 0
+    sid = None
+    for part in path:
+        sid = _find_child_sid(entries, parent, part)
+        if sid is None:
+            return None
+        parent = sid
+    return sid
+
+
 if __name__ == "__main__":
     import sys
     if len(sys.argv) == 3:
