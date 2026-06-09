@@ -45,6 +45,7 @@ nav:
   - Home: index.md
   - Quickstart: quickstart.md
   - hwpkit vs alternatives: comparison.md
+  - Blog: blog/index.md
   - API reference: api.md
   - Internals:
     - Object model (HWP ↔ HWPX): OBJECT_MODEL.md
@@ -69,6 +70,11 @@ markdown_extensions:
       base_path: ["."]
 
 plugins:
+  - blog:
+      blog_dir: blog
+      post_url_format: "{slug}"
+      post_excerpt: optional
+      archive: false
   - search
   - mkdocstrings:
       handlers:
