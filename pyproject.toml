@@ -11,11 +11,6 @@ license = { text = "MIT" }
 authors = [{ name = "psychofict" }]
 requires-python = ">=3.9"
 dependencies = ["olefile>=0.46"]
-
-[project.optional-dependencies]
-hwpx = ["lxml>=4.6"]          # .hwpx (OWPML) text extraction
-image = ["Pillow>=9.0"]        # place_image (seal / signature insertion)
-full = ["lxml>=4.6", "Pillow>=9.0"]
 keywords = [
     "hwp", "hancom", "hancom-office", "korean", "hangul",
     "office", "compound-file", "ole", "cfb", "hwp5",
@@ -35,6 +30,11 @@ classifiers = [
     "Topic :: Office/Business",
     "Topic :: Text Processing :: Markup",
 ]
+
+[project.optional-dependencies]
+hwpx = ["lxml>=4.6"]                  # .hwpx (OWPML) text extraction
+image = ["Pillow>=9.0"]              # place_image (seal / signature insertion)
+full = ["lxml>=4.6", "Pillow>=9.0"]
 
 [project.urls]
 Homepage = "https://github.com/psychofict/hwpkit"
