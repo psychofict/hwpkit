@@ -6,35 +6,33 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.">
+        <meta name="description" content="A practical guide to reading, extracting text from, and editing Korean HWP and HWPX (Hancom Office) files in Python — without Hancom or Windows.">
       
       
         <meta name="author" content="Ebenworks">
       
       
-        <link rel="canonical" href="https://hwpkit.ebstar.co/">
+        <link rel="canonical" href="https://hwpkit.ebstar.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/">
       
       
-      
-        <link rel="next" href="quickstart/">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>hwpkit</title>
+        <title>How to read and extract text from Korean HWP files in Python - hwpkit</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -53,9 +51,9 @@
       
     
     
-      <link rel="stylesheet" href="assets/_mkdocstrings.css">
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -80,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hwpkit" class="md-skip">
+        <a href="#how-to-read-and-extract-text-from-korean-hwp-files-in-python" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +94,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="." title="hwpkit" class="md-header__button md-logo" aria-label="hwpkit" data-md-component="logo">
+    <a href="../.." title="hwpkit" class="md-header__button md-logo" aria-label="hwpkit" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -116,7 +114,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Home
+              How to read and extract text from Korean HWP files in Python
             
           </span>
         </div>
@@ -225,7 +223,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -234,7 +234,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="." title="hwpkit" class="md-nav__button md-logo" aria-label="hwpkit" data-md-component="logo">
+    <a href="../.." title="hwpkit" class="md-nav__button md-logo" aria-label="hwpkit" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -261,37 +261,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Home
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="." class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -307,70 +280,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#why-hwpkit" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why hwpkit
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#one-api-both-formats" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        One API, both formats
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#who-uses-this" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Who uses this
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next steps
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -382,7 +291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="quickstart/" class="md-nav__link">
+      <a href="../../quickstart/" class="md-nav__link">
         
   
   
@@ -409,7 +318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="comparison/" class="md-nav__link">
+      <a href="../../comparison/" class="md-nav__link">
         
   
   
@@ -433,12 +342,14 @@
       
   
   
+    
+  
   
     
   
   
-    <li class="md-nav__item">
-      <a href="blog/" class="md-nav__link">
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../" class="md-nav__link">
         
   
   
@@ -465,7 +376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="api/" class="md-nav__link">
+      <a href="../../api/" class="md-nav__link">
         
   
   
@@ -544,7 +455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="OBJECT_MODEL/" class="md-nav__link">
+      <a href="../../OBJECT_MODEL/" class="md-nav__link">
         
   
   
@@ -572,7 +483,7 @@
   
   
     <li class="md-nav__item">
-      <a href="RECORD_FORMAT/" class="md-nav__link">
+      <a href="../../RECORD_FORMAT/" class="md-nav__link">
         
   
   
@@ -600,7 +511,7 @@
   
   
     <li class="md-nav__item">
-      <a href="GOTCHAS/" class="md-nav__link">
+      <a href="../../GOTCHAS/" class="md-nav__link">
         
   
   
@@ -635,7 +546,7 @@
   
   
     <li class="md-nav__item">
-      <a href="changelog/" class="md-nav__link">
+      <a href="../../changelog/" class="md-nav__link">
         
   
   
@@ -663,6 +574,8 @@
             
             
               
+                
+              
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -682,10 +595,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#why-hwpkit" class="md-nav__link">
+  <a href="#install" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why hwpkit
+        Install
       
     </span>
   </a>
@@ -693,10 +606,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#one-api-both-formats" class="md-nav__link">
+  <a href="#extract-text-from-a-hwp-or-hwpx-file" class="md-nav__link">
     <span class="md-ellipsis">
       
-        One API, both formats
+        Extract text from a .hwp or .hwpx file
       
     </span>
   </a>
@@ -704,10 +617,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#who-uses-this" class="md-nav__link">
+  <a href="#use-it-for-a-korean-rag-llm-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Who uses this
+        Use it for a Korean RAG / LLM pipeline
       
     </span>
   </a>
@@ -715,10 +628,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
+  <a href="#edit-a-document-fill-forms-tick-checkboxes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Next steps
+        Edit a document: fill forms, tick checkboxes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#insert-a-seal-or-signature-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Insert a seal or signature image
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-not-just-automate-hancom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not just automate Hancom?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-makes-editing-hwp-hard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What makes editing .hwp hard
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wrapping-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wrapping up
       
     </span>
   </a>
@@ -734,104 +691,195 @@
             
           
           
-            <div class="md-content" data-md-component="content">
-              
-              <article class="md-content__inner md-typeset">
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
                 
-                  
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://raw.githubusercontent.com/psychofict/hwpkit/main/assets/logo.jpeg" alt="Ebenworks">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://ebenworks.ebstar.co/">Ebenworks</a>
+                        
+                      </strong>
+                      <br>
+                      Maker of hwpkit
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2026-06-09 00:00:00+00:00" class="md-ellipsis">June 9, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3zm3 2 4 13 3-1-4-13zM5 5v13h3V5zM3 19v2h18v-2z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../category/tutorials/">Tutorials</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              3 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
 
 
   
   
 
 
-<h1 id="hwpkit">hwpkit<a class="headerlink" href="#hwpkit" title="Permanent link">&para;</a></h1>
-<p><strong>The pure-Python toolkit for Korean HWP &amp; HWPX (Hancom Office) documents.</strong>
-Read it, edit it, extract its text — <em>no Hancom, no Windows, no COM automation.</em></p>
-<p><a class="md-button md-button--primary" href="quickstart/">Get started</a>
-<a class="md-button" href="https://github.com/psychofict/hwpkit">View on GitHub</a>
-<a class="md-button" href="https://pypi.org/project/hwpkit/">PyPI</a></p>
-<hr />
-<p>Korean government, universities, courts, and most Korean enterprises run on
-<strong>HWP</strong> (한글, Hangul Word Processor) — the <code>.hwp</code> and <code>.hwpx</code> formats from
-Hancom Office. The rest of the world's tooling (<code>python-docx</code>, <code>pdfplumber</code>,
-<code>unstructured</code>, LibreOffice) <strong>can't read them</strong>, and the few that try need a
-Windows box with Hancom installed driving it over COM.</p>
-<p><strong><code>hwpkit</code> is the missing piece.</strong> Pure Python, cross-platform, zero external
-apps — install it and start reading, editing, and extracting Korean documents
-in three lines.</p>
+<h1 id="how-to-read-and-extract-text-from-korean-hwp-files-in-python">How to read and extract text from Korean HWP files in Python<a class="headerlink" href="#how-to-read-and-extract-text-from-korean-hwp-files-in-python" title="Permanent link">&para;</a></h1>
+<p>If you've ever tried to open a Korean <code>.hwp</code> file in Python, you already know
+the problem: <code>python-docx</code> doesn't touch it, <code>pdfplumber</code> is for PDFs, and
+<code>unstructured</code> skips it. HWP — 한글, the Hangul Word Processor format from
+Hancom Office — is the default document format across Korean government,
+universities, courts, and enterprises, yet almost no portable tooling reads it.</p>
+<p>This guide shows how to <strong>read, extract text from, and edit both <code>.hwp</code> and
+<code>.hwpx</code> files in pure Python</strong> using <a href="https://github.com/psychofict/hwpkit"><code>hwpkit</code></a>
+— no Hancom installation and no Windows required, so it runs on a Linux
+server, in CI, or in a container.</p>
+<!-- more -->
+
+<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
 </code></pre></div>
+<p>The core install is just <code>olefile</code>; the <code>[full]</code> extra adds <code>lxml</code> (for
+<code>.hwpx</code>) and <code>Pillow</code> (for image insertion).</p>
+<h2 id="extract-text-from-a-hwp-or-hwpx-file">Extract text from a <code>.hwp</code> or <code>.hwpx</code> file<a class="headerlink" href="#extract-text-from-a-hwp-or-hwpx-file" title="Permanent link">&para;</a></h2>
+<p>The most common need — turning a Korean document into plain text for search,
+indexing, or an LLM:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">))</span>      <span class="c1"># …or .hwpx — auto-detected</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>     <span class="c1"># works on .hwpx too</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
-<p>That's it. No Hancom license. No Windows. No headless office server.</p>
-<h2 id="why-hwpkit">Why hwpkit<a class="headerlink" href="#why-hwpkit" title="Permanent link">&para;</a></h2>
-<div class="grid cards">
-<ul>
-<li>
-<p>📄 <strong>Both formats, one API</strong></p>
-<p>Binary <code>.hwp</code> (HWP 5.0) <em>and</em> XML <code>.hwpx</code> (OWPML). <code>open_document()</code> hands
-you the same editor either way — you never branch on format.</p>
-</li>
-<li>
-<p>🐍 <strong>Pure Python, runs anywhere</strong></p>
-<p>Linux, macOS, Windows, containers, Lambda. No Hancom, no <code>pywin32</code>, no COM,
-no LibreOffice subprocess.</p>
-</li>
-<li>
-<p>🤖 <strong>Built for LLM / RAG</strong></p>
-<p>Clean Korean text out of any <code>.hwp</code>/<code>.hwpx</code>, ready to chunk and embed — the
-preprocessing step your retrieval pipeline was missing.</p>
-</li>
-<li>
-<p>✍️ <strong>Edit without corrupting</strong></p>
-<p>Fill government &amp; university forms, tick checkboxes, rewrite cells — and the
-binary container is rebuilt while preserving the directory tree Hancom
-validates on open.</p>
-</li>
-<li>
-<p>🖋️ <strong>Insert seals &amp; signatures</strong></p>
-<p>Stamp a 도장/직인/서명 image into a form cell — into both <code>.hwp</code> and <code>.hwpx</code>.</p>
-</li>
-<li>
-<p>⚖️ <strong>MIT licensed, tiny core</strong></p>
-<p>Base install is just <code>olefile</code>; <code>lxml</code> and <code>Pillow</code> are optional extras,
-loaded lazily only when you use <code>.hwpx</code> or images.</p>
-</li>
-</ul>
-</div>
-<h2 id="one-api-both-formats">One API, both formats<a class="headerlink" href="#one-api-both-formats" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;template.hwp&quot;</span><span class="p">)</span>            <span class="c1"># or &quot;template.hwpx&quot; — auto-detected</span>
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                           <span class="c1"># list paragraphs to find field indices</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                    <span class="c1"># fill an empty cell</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 석사&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 석사&quot;</span><span class="p">)</span>    <span class="c1"># tick a checkbox</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>           <span class="c1"># overwrite a cell</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;seal.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>    <span class="c1"># stamp a 도장 / signature</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;out.hwp&quot;</span><span class="p">)</span>
+<p><code>extract_text_from_file</code> auto-detects the format by inspecting the container
+(not just the file extension), so a mixed folder of <code>.hwp</code> and <code>.hwpx</code> needs no
+branching. Behind the scenes it walks every section, decodes the text, and
+strips inline controls (tables, images, footnote markers, page-number fields,
+bookmarks) — returning clean, one-line-per-paragraph text with table-cell
+content included.</p>
+<p>From the command line:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>hwpkit-text<span class="w"> </span>contract.hwp
 </code></pre></div>
-<p><code>open_document</code> returns an <a href="api/#hwpkit.hwp.HwpFile"><code>HwpFile</code></a> or
-<a href="api/#hwpkit.hwpx.HwpxFile"><code>HwpxFile</code></a> depending on the file — both expose
-the <strong>same methods</strong>.</p>
-<h2 id="who-uses-this">Who uses this<a class="headerlink" href="#who-uses-this" title="Permanent link">&para;</a></h2>
+<h2 id="use-it-for-a-korean-rag-llm-pipeline">Use it for a Korean RAG / LLM pipeline<a class="headerlink" href="#use-it-for-a-korean-rag-llm-pipeline" title="Permanent link">&para;</a></h2>
+<p>This is exactly the preprocessing step most Korean retrieval pipelines are
+missing. Index a whole archive into a vector database:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;corpus/**/*.hwp*&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp and .hwpx</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">vector_db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc_id</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div>
+<p><code>hwpkit</code> has no LLM dependencies — it's just a clean Korean-text source you can
+feed into any chunker, embedding model, or context window.</p>
+<h2 id="edit-a-document-fill-forms-tick-checkboxes">Edit a document: fill forms, tick checkboxes<a class="headerlink" href="#edit-a-document-fill-forms-tick-checkboxes" title="Permanent link">&para;</a></h2>
+<p>Reading is only half of it. Korean offices live on <code>.hwp</code> <em>forms</em> —
+application forms, 결격사유 checklists, score sheets. <code>hwpkit</code> edits them
+without corrupting the file, using one object API for both formats:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;지원서.hwp&quot;</span><span class="p">)</span>              <span class="c1"># or &quot;지원서.hwpx&quot;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                          <span class="c1"># list paragraphs to find fields</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                   <span class="c1"># fill an empty cell</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 동의&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 동의&quot;</span><span class="p">)</span>   <span class="c1"># tick a checkbox</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>          <span class="c1"># overwrite a cell</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;작성완료.hwp&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="insert-a-seal-or-signature-image">Insert a seal or signature image<a class="headerlink" href="#insert-a-seal-or-signature-image" title="Permanent link">&para;</a></h2>
+<p>Forms often need a 도장/직인/서명 image, not just text:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;도장.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 30 mm wide, aspect preserved</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;날인완료.hwp&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="why-not-just-automate-hancom">Why not just automate Hancom?<a class="headerlink" href="#why-not-just-automate-hancom" title="Permanent link">&para;</a></h2>
+<p>The other way to script HWP is <code>pyhwpx</code>, which drives the Hancom Office app
+over Windows COM. It's powerful — but it <strong>requires Windows and a Hancom
+installation</strong>, so it can't run on a Linux server, in CI, or in a container.
+<code>hwpkit</code> is pure Python and runs anywhere. (<code>pyhwp</code> is excellent for the binary
+record format and HWP→XML conversion, but is read-oriented and doesn't handle
+<code>.hwpx</code>.) There's a full
+<a href="../../comparison/">comparison here</a>.</p>
+<h2 id="what-makes-editing-hwp-hard">What makes editing <code>.hwp</code> hard<a class="headerlink" href="#what-makes-editing-hwp-hard" title="Permanent link">&para;</a></h2>
+<p>A binary <code>.hwp</code> is a Microsoft Compound File Binary (MS-CFB) container of
+deflate-compressed record streams. The moment you insert Korean text, a stream
+changes byte length — and a naive rewrite fails, because Hancom validates the
+red-black-tree directory structure on open and re-renders text from a cached
+per-paragraph layout you have to invalidate correctly. <code>hwpkit</code> handles both.
+If you're going deeper, the <a href="../../GOTCHAS/">gotchas</a> and the
+<a href="../../OBJECT_MODEL/">object model</a> writeups cover the traps.</p>
+<h2 id="wrapping-up">Wrapping up<a class="headerlink" href="#wrapping-up" title="Permanent link">&para;</a></h2>
+<p>If you need to read, extract, or edit Korean HWP/HWPX documents from Python —
+for a RAG pipeline, a form-automation job, or a one-off migration — <code>hwpkit</code>
+does it in pure Python on any platform.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
+</code></pre></div>
 <ul>
-<li><strong>AI / RAG engineers</strong> indexing Korean documents into vector DBs.</li>
-<li><strong>Gov-tech &amp; RPA teams</strong> auto-filling 관공서·대학 forms at scale.</li>
-<li><strong>Data engineers</strong> migrating HWP archives to text / structured data.</li>
-<li><strong>Anyone</strong> who needs to edit a <code>.hwp</code> without clicking through Hancom.</li>
+<li><strong>GitHub:</strong> <a href="https://github.com/psychofict/hwpkit">github.com/psychofict/hwpkit</a></li>
+<li><strong>Docs:</strong> <a href="https://hwpkit.ebstar.co">hwpkit.ebstar.co</a></li>
 </ul>
-<h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="quickstart/">Quickstart</a> — extract, edit, and stamp in a few lines.</li>
-<li><a href="comparison/">hwpkit vs alternatives</a> — how it compares to <code>pyhwp</code>,
-  <code>pyhwpx</code>, and <code>olefile</code>.</li>
-<li><a href="api/">API reference</a> — every public function and class.</li>
-<li><a href="OBJECT_MODEL/">Internals</a> — how <code>.hwp</code> and <code>.hwpx</code> map onto one model.</li>
-</ul>
-<hr />
-<p>Made by <a href="https://ebenworks.ebstar.co/">Ebenworks</a> · MIT licensed.</p>
+<p>Questions or a format edge case <code>hwpkit</code> doesn't handle yet? Open an issue —
+feedback shapes the roadmap.</p>
 
 
 
@@ -839,15 +887,20 @@ the <strong>same methods</strong>.</p>
 
 
 
+  
+  
 
 
 
 
+  
 
-                
-              </article>
-            </div>
-          
+
+
+      
+    </article>
+  </div>
+
           
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
@@ -912,10 +965,10 @@ the <strong>same methods</strong>.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.instant", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.tracking", "navigation.instant", "content.code.copy", "content.code.annotate", "search.suggest", "search.highlight", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

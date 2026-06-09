@@ -32,4 +32,16 @@
          <loc>https://hwpkit.ebstar.co/quickstart/</loc>
          <lastmod>2026-06-09</lastmod>
     </url>
+    <url>
+         <loc>https://hwpkit.ebstar.co/blog/</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
+    <url>
+         <loc>https://hwpkit.ebstar.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
+    <url>
+         <loc>https://hwpkit.ebstar.co/blog/category/tutorials/</loc>
+         <lastmod>2026-06-09</lastmod>
+    </url>
 </urlset>
