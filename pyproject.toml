@@ -46,7 +46,10 @@ image = ["Pillow>=9.0"]              # place_image (seal / signature insertion)
 full = ["lxml>=4.6", "Pillow>=9.0"]
 
 [project.urls]
-Homepage = "https://github.com/psychofict/hwpkit"
+Homepage = "https://hwpkit.ebstar.co/"
+Documentation = "https://hwpkit.ebstar.co/"
+Repository = "https://github.com/psychofict/hwpkit"
+Changelog = "https://hwpkit.ebstar.co/changelog/"
 Issues = "https://github.com/psychofict/hwpkit/issues"
 Author = "https://ebenworks.ebstar.co/"
 
