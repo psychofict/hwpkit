@@ -1,7 +1,7 @@
 name: Docs
 
 # Builds the MkDocs Material site and deploys it to GitHub Pages (gh-pages
-# branch). The CNAME file in docs/ pins the custom domain (hwpkit.ebstar.co).
+# branch). The CNAME file in docs/ pins the custom domain (hwpkit.ebenworks.co).
 
 on:
   push:

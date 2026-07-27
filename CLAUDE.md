@@ -8,7 +8,7 @@ Guidance for Claude Code (and contributors) working in this repository.
 documents** — read, extract text, edit (fill forms), and insert images, across
 **both** the binary `.hwp` (HWP 5.0) and XML `.hwpx` (OWPML) formats, with **no
 Hancom and no Windows** required. Published on PyPI as `hwpkit`; docs at
-**https://hwpkit.ebstar.co**. MIT licensed. Author: Ebenworks (GitHub
+**https://hwpkit.ebenworks.co**. MIT licensed. Author: Ebenworks (GitHub
 `psychofict/hwpkit`).
 
 `.hwp` and `.hwpx` are **two serializations of one document model** (OWPML).
@@ -140,7 +140,7 @@ CI (`ci.yml`) runs the test matrix (Python 3.9–3.13) on push/PR and installs
 
 MkDocs Material (`mkdocs.yml` + `docs/`), deployed to the `gh-pages` branch via
 `docs.yml` on every push to `main` (`mkdocs gh-deploy`). `docs/CNAME` pins the
-custom domain `hwpkit.ebstar.co`. The API reference is auto-generated from
+custom domain `hwpkit.ebenworks.co`. The API reference is auto-generated from
 docstrings by `mkdocstrings` (so keep docstrings accurate). There's a blog
 (`docs/blog/`, Material blog plugin) for SEO posts; `docs/robots.txt` +
 the generated `sitemap.xml` cover crawlers.

@@ -101,4 +101,4 @@ the **same methods**.
 
 ---
 
-Made by [Ebenworks](https://ebenworks.ebstar.co/) · MIT licensed.
+Made by [Ebenworks](https://ebenworks.co/) · MIT licensed.

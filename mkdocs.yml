@@ -3,7 +3,7 @@ site_description: >-
   Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files
   in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures,
   and feed Korean documents to LLM/RAG pipelines.
-site_url: https://hwpkit.ebstar.co/
+site_url: https://hwpkit.ebenworks.co/
 site_author: Ebenworks
 
 repo_url: https://github.com/psychofict/hwpkit

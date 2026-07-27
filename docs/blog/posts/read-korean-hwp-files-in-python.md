@@ -132,7 +132,7 @@ pip install hwpkit[full]
 ```
 
 - **GitHub:** [github.com/psychofict/hwpkit](https://github.com/psychofict/hwpkit)
-- **Docs:** [hwpkit.ebstar.co](https://hwpkit.ebstar.co)
+- **Docs:** [hwpkit.ebenworks.co](https://hwpkit.ebenworks.co)
 
 Questions or a format edge case `hwpkit` doesn't handle yet? Open an issue —
 feedback shapes the roadmap.

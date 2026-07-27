@@ -127,7 +127,7 @@ pip install hwpkit[full]
 ```
 
 - **GitHub:** [github.com/psychofict/hwpkit](https://github.com/psychofict/hwpkit)
-- **문서:** [hwpkit.ebstar.co](https://hwpkit.ebstar.co)
+- **문서:** [hwpkit.ebenworks.co](https://hwpkit.ebenworks.co)
 
 `hwpkit`이 아직 처리하지 못하는 형식이 있다면 이슈로 알려주세요 — 피드백이
 로드맵을 만듭니다. 🙏
