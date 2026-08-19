@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.">
+        <meta name="description" content="Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. Covers the pip extras, opening a document, pulling its text, and saving an edit Hancom accepts.">
       
       
         <meta name="author" content="Ebenworks">
@@ -63,6 +63,54 @@
 
     
     
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hwpkit">
+  <meta property="og:title" content="Quickstart · hwpkit">
+  <meta property="og:description" content="Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. Covers the pip extras, opening a document, pulling its text, and saving an edit Hancom accepts.">
+  <meta property="og:url" content="https://hwpkit.ebenworks.co/quickstart/">
+  <meta property="og:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="hwpkit — read, edit and extract text from Korean HWP and HWPX files in pure Python">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Quickstart">
+  <meta name="twitter:description" content="Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. Covers the pip extras, opening a document, pulling its text, and saving an edit Hancom accepts.">
+  <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://hwpkit.ebenworks.co/#library",
+        "name": "hwpkit",
+        "description": "Read, edit \u0026 extract text from Korean HWP \u0026 HWPX (Hancom Office / \ud55c\uae00) files in pure Python \u2014 no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.",
+        "url": "https://hwpkit.ebenworks.co/",
+        "codeRepository": "https://github.com/psychofict/hwpkit",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://hwpkit.ebenworks.co/quickstart/#page",
+        "headline": "Quickstart",
+        "description": "Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. Covers the pip extras, opening a document, pulling its text, and saving an edit Hancom accepts.",
+        "url": "https://hwpkit.ebenworks.co/quickstart/",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
+        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+      }
+    ]
+  }
+  </script>
+
   </head>
   
   
@@ -836,10 +884,10 @@
 <h2 id="extract-text-for-rag-search-or-an-llm">Extract text — for RAG, search, or an LLM<a class="headerlink" href="#extract-text-for-rag-search-or-an-llm" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;notice.hwpx&quot;</span><span class="p">)</span>   <span class="c1"># .hwp or .hwpx, auto-detected</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">"notice.hwpx"</span><span class="p">)</span>   <span class="c1"># .hwp or .hwpx, auto-detected</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># from the shell — works on both formats</span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>hwpkit-text<span class="w"> </span>contract.hwp<span class="w"> </span><span class="p">|</span><span class="w"> </span>llm<span class="w"> </span><span class="s2">&quot;Summarize the key obligations in Korean&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>hwpkit-text<span class="w"> </span>contract.hwp<span class="w"> </span><span class="p">|</span><span class="w"> </span>llm<span class="w"> </span><span class="s2">"Summarize the key obligations in Korean"</span>
 </code></pre></div>
 <p>Extraction strips inline controls (tables, images, footnote refs, autonumbers,
 page-number controls, bookmarks) and returns clean, one-line-per-paragraph text
@@ -848,12 +896,12 @@ window.</p>
 <h2 id="edit-a-form-one-api-either-format">Edit a form — one API, either format<a class="headerlink" href="#edit-a-form-one-api-either-format" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;template.hwp&quot;</span><span class="p">)</span>            <span class="c1"># or &quot;template.hwpx&quot; — auto-detected</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"template.hwp"</span><span class="p">)</span>            <span class="c1"># or "template.hwpx" — auto-detected</span>
 <a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                           <span class="c1"># list paragraphs to find field indices</span>
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                    <span class="c1"># fill an empty cell</span>
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 석사&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 석사&quot;</span><span class="p">)</span>    <span class="c1"># tick a checkbox</span>
-<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>           <span class="c1"># overwrite a cell</span>
-<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;out.hwp&quot;</span><span class="p">)</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">"홍길동"</span><span class="p">)</span>                    <span class="c1"># fill an empty cell</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">"□ 석사"</span><span class="p">,</span> <span class="s2">"☑ 석사"</span><span class="p">)</span>    <span class="c1"># tick a checkbox</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">"2026. 05. 19."</span><span class="p">)</span>           <span class="c1"># overwrite a cell</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"out.hwp"</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Finding the right paragraph index</p>
@@ -889,9 +937,9 @@ also run <code>hwpkit-inspect template.hwp</code> from the shell.</p>
 </tbody>
 </table>
 <h2 id="stamp-a-seal-signature">Stamp a seal / signature<a class="headerlink" href="#stamp-a-seal-signature" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;form.hwp&quot;</span><span class="p">)</span>        <span class="c1"># or .hwpx</span>
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;seal.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 30 mm wide, aspect preserved</span>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;out.hwp&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"form.hwp"</span><span class="p">)</span>        <span class="c1"># or .hwpx</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">"seal.png"</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 30 mm wide, aspect preserved</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"out.hwp"</span><span class="p">)</span>
 </code></pre></div>
 <p><code>width_mm</code> sets the displayed width; omit it to use the image's native pixel
 size. Works for <code>.hwp</code> and <code>.hwpx</code> alike.</p>
@@ -901,21 +949,21 @@ still fully supported:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">fill_hwp</span><span class="p">,</span> <span class="n">inject_text</span><span class="p">,</span> <span class="n">swap_in_para_text</span><span class="p">,</span> <span class="n">replace_text</span><span class="p">,</span> <span class="n">place_image</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">edit</span><span class="p">(</span><span class="n">records</span><span class="p">):</span>
-<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">inject_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">swap_in_para_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 석사&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 석사&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">replace_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="n">inject_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="s2">"홍길동"</span><span class="p">)</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="n">swap_in_para_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="s2">"□ 석사"</span><span class="p">,</span> <span class="s2">"☑ 석사"</span><span class="p">)</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    <span class="n">replace_text</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="s2">"2026. 05. 19."</span><span class="p">)</span>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">fill_hwp</span><span class="p">(</span><span class="s2">&quot;template.hwp&quot;</span><span class="p">,</span> <span class="s2">&quot;out.hwp&quot;</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">place_image</span><span class="p">(</span><span class="s2">&quot;form.hwp&quot;</span><span class="p">,</span> <span class="s2">&quot;out.hwp&quot;</span><span class="p">,</span> <span class="s2">&quot;seal.png&quot;</span><span class="p">,</span> <span class="n">paragraph_index</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="n">fill_hwp</span><span class="p">(</span><span class="s2">"template.hwp"</span><span class="p">,</span> <span class="s2">"out.hwp"</span><span class="p">,</span> <span class="n">edit</span><span class="p">)</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">place_image</span><span class="p">(</span><span class="s2">"form.hwp"</span><span class="p">,</span> <span class="s2">"out.hwp"</span><span class="p">,</span> <span class="s2">"seal.png"</span><span class="p">,</span> <span class="n">paragraph_index</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">fill_hwpx</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">fill_hwpx</span><span class="p">(</span><span class="s2">&quot;template.hwpx&quot;</span><span class="p">,</span> <span class="s2">&quot;out.hwpx&quot;</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">))</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">fill_hwpx</span><span class="p">(</span><span class="s2">"template.hwpx"</span><span class="p">,</span> <span class="s2">"out.hwpx"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">d</span><span class="p">:</span> <span class="n">d</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="s2">"홍길동"</span><span class="p">))</span>
 </code></pre></div>
 <h2 id="index-a-whole-corpus-rag">Index a whole corpus (RAG)<a class="headerlink" href="#index-a-whole-corpus-rag" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;corpus/**/*.hwp*&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp and .hwpx</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"corpus/**/*.hwp*"</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp and .hwpx</span>
 <a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">vector_db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc_id</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 </code></pre></div>
 <p>See the <a href="../api/">API reference</a> for everything, or the
@@ -926,6 +974,9 @@ still fully supported:</p>
 
 
 
+
+  
+  
 
 
 

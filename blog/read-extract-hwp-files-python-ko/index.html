@@ -61,6 +61,54 @@
 
     
     
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="hwpkit">
+  <meta property="og:title" content="파이썬으로 HWP·HWPX 파일 읽기와 텍스트 추출하기 · hwpkit">
+  <meta property="og:description" content="파이썬으로 한글 HWP·HWPX 파일을 읽고 텍스트를 추출하고 편집하는 방법 — 한컴오피스나 윈도우 없이 순수 파이썬으로.">
+  <meta property="og:url" content="https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/">
+  <meta property="og:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="hwpkit — read, edit and extract text from Korean HWP and HWPX files in pure Python">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="파이썬으로 HWP·HWPX 파일 읽기와 텍스트 추출하기">
+  <meta name="twitter:description" content="파이썬으로 한글 HWP·HWPX 파일을 읽고 텍스트를 추출하고 편집하는 방법 — 한컴오피스나 윈도우 없이 순수 파이썬으로.">
+  <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://hwpkit.ebenworks.co/#library",
+        "name": "hwpkit",
+        "description": "Read, edit \u0026 extract text from Korean HWP \u0026 HWPX (Hancom Office / \ud55c\uae00) files in pure Python \u2014 no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.",
+        "url": "https://hwpkit.ebenworks.co/",
+        "codeRepository": "https://github.com/psychofict/hwpkit",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/#page",
+        "headline": "\ud30c\uc774\uc36c\uc73c\ub85c HWP\u00b7HWPX \ud30c\uc77c \uc77d\uae30\uc640 \ud14d\uc2a4\ud2b8 \ucd94\ucd9c\ud558\uae30",
+        "description": "\ud30c\uc774\uc36c\uc73c\ub85c \ud55c\uae00 HWP\u00b7HWPX \ud30c\uc77c\uc744 \uc77d\uace0 \ud14d\uc2a4\ud2b8\ub97c \ucd94\ucd9c\ud558\uace0 \ud3b8\uc9d1\ud558\ub294 \ubc29\ubc95 \u2014 \ud55c\ucef4\uc624\ud53c\uc2a4\ub098 \uc708\ub3c4\uc6b0 \uc5c6\uc774 \uc21c\uc218 \ud30c\uc774\uc36c\uc73c\ub85c.",
+        "url": "https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
+        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+      }
+    ]
+  }
+  </script>
+
   </head>
   
   
@@ -809,7 +857,7 @@ CI, 컨테이너에서는 쓸 수 없습니다.</p>
 <p>가장 흔한 작업 — 한글 문서를 검색·색인·LLM 입력용 일반 텍스트로 바꾸기:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>     <span class="c1"># .hwpx도 동일하게 동작</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">"계약서.hwp"</span><span class="p">)</span>     <span class="c1"># .hwpx도 동일하게 동작</span>
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
 <p><code>extract_text_from_file</code>은 확장자가 아니라 <strong>파일 내용으로 형식을 자동
@@ -825,7 +873,7 @@ HWP 문서 보관소 전체를 벡터 DB에 색인하기:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;corpus/**/*.hwp*&quot;</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp + .hwpx</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">"corpus/**/*.hwp*"</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>   <span class="c1"># .hwp + .hwpx</span>
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>    <span class="n">text</span> <span class="o">=</span> <span class="n">extract_text_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="n">vector_db</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">doc_id</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">text</span><span class="p">)</span>
 </code></pre></div>
@@ -837,18 +885,18 @@ HWP 문서 보관소 전체를 벡터 DB에 색인하기:</p>
 편집하며, 두 형식 모두 <strong>동일한 객체 API</strong>를 씁니다:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;지원서.hwp&quot;</span><span class="p">)</span>              <span class="c1"># 또는 &quot;지원서.hwpx&quot;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"지원서.hwp"</span><span class="p">)</span>              <span class="c1"># 또는 "지원서.hwpx"</span>
 <a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                          <span class="c1"># 문단 인덱스로 필드 위치 찾기</span>
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                   <span class="c1"># 빈 칸 채우기</span>
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 동의&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 동의&quot;</span><span class="p">)</span>   <span class="c1"># 체크박스 체크</span>
-<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>          <span class="c1"># 셀 내용 교체</span>
-<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;작성완료.hwp&quot;</span><span class="p">)</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">"홍길동"</span><span class="p">)</span>                   <span class="c1"># 빈 칸 채우기</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">"□ 동의"</span><span class="p">,</span> <span class="s2">"☑ 동의"</span><span class="p">)</span>   <span class="c1"># 체크박스 체크</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">"2026. 05. 19."</span><span class="p">)</span>          <span class="c1"># 셀 내용 교체</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"작성완료.hwp"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="_3">도장·서명 이미지 삽입<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <p>양식에는 글자뿐 아니라 도장/직인/서명 이미지가 필요할 때가 많습니다:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">)</span>
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;도장.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 가로 30mm, 비율 유지</span>
-<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;날인완료.hwp&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"계약서.hwp"</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">"도장.png"</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>   <span class="c1"># 가로 30mm, 비율 유지</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"날인완료.hwp"</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="pyhwpx-hwpkit">왜 한컴 자동화(pyhwpx)가 아니라 hwpkit인가<a class="headerlink" href="#pyhwpx-hwpkit" title="Permanent link">&para;</a></h2>
 <p><code>pyhwpx</code>는 한컴오피스 앱을 COM으로 제어합니다. 강력하지만 <strong>윈도우와 한컴

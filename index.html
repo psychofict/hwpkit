@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.">
+        <meta name="description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
       
       
         <meta name="author" content="Ebenworks">
@@ -61,6 +61,54 @@
 
     
     
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hwpkit">
+  <meta property="og:title" content="Home · hwpkit">
+  <meta property="og:description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
+  <meta property="og:url" content="https://hwpkit.ebenworks.co/">
+  <meta property="og:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="hwpkit — read, edit and extract text from Korean HWP and HWPX files in pure Python">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Home">
+  <meta name="twitter:description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
+  <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://hwpkit.ebenworks.co/#library",
+        "name": "hwpkit",
+        "description": "Read, edit \u0026 extract text from Korean HWP \u0026 HWPX (Hancom Office / \ud55c\uae00) files in pure Python \u2014 no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.",
+        "url": "https://hwpkit.ebenworks.co/",
+        "codeRepository": "https://github.com/psychofict/hwpkit",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://hwpkit.ebenworks.co/#page",
+        "headline": "Home",
+        "description": "hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / \ud55c\uae00) files in pure Python. No Hancom install, no Windows, no COM automation.",
+        "url": "https://hwpkit.ebenworks.co/",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
+        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+      }
+    ]
+  }
+  </script>
+
   </head>
   
   
@@ -763,7 +811,7 @@ in three lines.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">&quot;계약서.hwp&quot;</span><span class="p">))</span>      <span class="c1"># …or .hwpx — auto-detected</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">"계약서.hwp"</span><span class="p">))</span>      <span class="c1"># …or .hwpx — auto-detected</span>
 </code></pre></div>
 <p>That's it. No Hancom license. No Windows. No headless office server.</p>
 <h2 id="why-hwpkit">Why hwpkit<a class="headerlink" href="#why-hwpkit" title="Permanent link">&para;</a></h2>
@@ -804,13 +852,13 @@ loaded lazily only when you use <code>.hwpx</code> or images.</p>
 <h2 id="one-api-both-formats">One API, both formats<a class="headerlink" href="#one-api-both-formats" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">&quot;template.hwp&quot;</span><span class="p">)</span>            <span class="c1"># or &quot;template.hwpx&quot; — auto-detected</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"template.hwp"</span><span class="p">)</span>            <span class="c1"># or "template.hwpx" — auto-detected</span>
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nb">print</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>                           <span class="c1"># list paragraphs to find field indices</span>
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">&quot;홍길동&quot;</span><span class="p">)</span>                    <span class="c1"># fill an empty cell</span>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">&quot;□ 석사&quot;</span><span class="p">,</span> <span class="s2">&quot;☑ 석사&quot;</span><span class="p">)</span>    <span class="c1"># tick a checkbox</span>
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">&quot;2026. 05. 19.&quot;</span><span class="p">)</span>           <span class="c1"># overwrite a cell</span>
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">&quot;seal.png&quot;</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>    <span class="c1"># stamp a 도장 / signature</span>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;out.hwp&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="n">doc</span><span class="o">.</span><span class="n">inject_text</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="s2">"홍길동"</span><span class="p">)</span>                    <span class="c1"># fill an empty cell</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">doc</span><span class="o">.</span><span class="n">swap_in_para_text</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="s2">"□ 석사"</span><span class="p">,</span> <span class="s2">"☑ 석사"</span><span class="p">)</span>    <span class="c1"># tick a checkbox</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">doc</span><span class="o">.</span><span class="n">replace_text</span><span class="p">(</span><span class="mi">75</span><span class="p">,</span> <span class="s2">"2026. 05. 19."</span><span class="p">)</span>           <span class="c1"># overwrite a cell</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">"seal.png"</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>    <span class="c1"># stamp a 도장 / signature</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"out.hwp"</span><span class="p">)</span>
 </code></pre></div>
 <p><code>open_document</code> returns an <a href="api/#hwpkit.hwp.HwpFile"><code>HwpFile</code></a> or
 <a href="api/#hwpkit.hwpx.HwpxFile"><code>HwpxFile</code></a> depending on the file — both expose
@@ -838,6 +886,9 @@ the <strong>same methods</strong>.</p>
 
 
 
+
+  
+  
 
 
 

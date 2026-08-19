@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Read, edit & extract text from Korean HWP & HWPX (Hancom Office / 한글) files in pure Python — no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.">
+        <meta name="description" content="hwpkit API reference, generated from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, and the form-fill and seal-insertion helpers.">
       
       
         <meta name="author" content="Ebenworks">
@@ -63,6 +63,54 @@
 
     
     
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="hwpkit">
+  <meta property="og:title" content="API reference · hwpkit">
+  <meta property="og:description" content="hwpkit API reference, generated from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, and the form-fill and seal-insertion helpers.">
+  <meta property="og:url" content="https://hwpkit.ebenworks.co/api/">
+  <meta property="og:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="hwpkit — read, edit and extract text from Korean HWP and HWPX files in pure Python">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="API reference">
+  <meta name="twitter:description" content="hwpkit API reference, generated from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, and the form-fill and seal-insertion helpers.">
+  <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://hwpkit.ebenworks.co/#library",
+        "name": "hwpkit",
+        "description": "Read, edit \u0026 extract text from Korean HWP \u0026 HWPX (Hancom Office / \ud55c\uae00) files in pure Python \u2014 no Hancom, no Windows. Fill forms, insert seals/signatures, and feed Korean documents to LLM/RAG pipelines.",
+        "url": "https://hwpkit.ebenworks.co/",
+        "codeRepository": "https://github.com/psychofict/hwpkit",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "https://hwpkit.ebenworks.co/api/#page",
+        "headline": "API reference",
+        "description": "hwpkit API reference, generated from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, and the form-fill and seal-insertion helpers.",
+        "url": "https://hwpkit.ebenworks.co/api/",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
+        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+      }
+    ]
+  }
+  </script>
+
   </head>
   
   
@@ -1686,10 +1734,10 @@ the same calling code works across both Hancom formats.</p>
 table-cell paragraphs included), matching <code>hwpkit.records.index_paragraphs</code>.
 There is no layout cache to invalidate — Hancom recomputes from the XML.</p>
 <div class="highlight"><pre><span></span><code>from hwpkit.hwpx import HwpxFile
-doc = HwpxFile.open(&quot;form.hwpx&quot;)
-doc.replace_text(12, &quot;홍길동&quot;)
-doc.swap_in_para_text(8, &quot;□ 동의&quot;, &quot;☑ 동의&quot;)
-doc.save(&quot;out.hwpx&quot;)
+doc = HwpxFile.open("form.hwpx")
+doc.replace_text(12, "홍길동")
+doc.swap_in_para_text(8, "□ 동의", "☑ 동의")
+doc.save("out.hwpx")
 </code></pre></div>
 
 
@@ -2107,8 +2155,8 @@ index — pass that n to inject_text / replace_text / swap_in_para_text.</p>
         <p>Open <code>input_path</code>, hand the HwpxFile to <code>edit_fn</code> to mutate, then save
 to <code>output_path</code> — the HWPX analogue of <code>hwpkit.fill_hwp</code>.</p>
 <div class="highlight"><pre><span></span><code>def edit(doc):
-    doc.replace_text(12, &quot;홍길동&quot;)
-fill_hwpx(&quot;form.hwpx&quot;, &quot;out.hwpx&quot;, edit)
+    doc.replace_text(12, "홍길동")
+fill_hwpx("form.hwpx", "out.hwpx", edit)
 </code></pre></div>
 
 
@@ -2131,7 +2179,7 @@ fill_hwpx(&quot;form.hwpx&quot;, &quot;out.hwpx&quot;, edit)
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">image_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">paragraph_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    <span class="n">width_mm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;Section0&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"Section0"</span><span class="p">,</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">)</span>
 </code></pre></div>
 
@@ -2265,6 +2313,9 @@ to its sid, or None. Root children are looked up under sid 0.</p>
 
 
 
+
+  
+  
 
 
 
