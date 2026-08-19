@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{#
+  Open Graph, Twitter cards and JSON-LD for every docs page.
+
+  MkDocs Material's base template emits none of these. A live check of all 13
+  pages found no og:image and no structured data anywhere on the site, so every
+  share of a docs URL rendered as a bare link and search engines had no entity to
+  attach the library to.
+
+  Deliberately NOT the `social` plugin, which generates a card per page: it needs
+  Cairo and Pillow in the docs build, and a docs site that stops building to gain a
+  share image is a bad trade. One real card plus per-page titles and descriptions
+  gets most of the value with no new build dependency.
+#}
+
+{% block extrahead %}
+  {{ super() }}
+
+  {%- set page_title = (page.meta and page.meta.title) or page.title or config.site_name -%}
+  {%- set page_desc = (page.meta and page.meta.description) or config.site_description -%}
+  {%- set page_url = page.canonical_url if page else config.site_url -%}
+  {%- set card = config.site_url ~ 'assets/social-preview.png' -%}
+
+  <meta property="og:type" content="{% if page and page.meta and page.meta.date %}article{% else %}website{% endif %}">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ page_title }}{% if page and page.title and page.title != config.site_name %} · {{ config.site_name }}{% endif %}">
+  <meta property="og:description" content="{{ page_desc }}">
+  <meta property="og:url" content="{{ page_url }}">
+  <meta property="og:image" content="{{ card }}">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="hwpkit — read, edit and extract text from Korean HWP and HWPX files in pure Python">
+  <meta property="og:locale" content="{% if page and page.meta and page.meta.lang %}{{ page.meta.lang }}{% else %}en_US{% endif %}">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page_title }}">
+  <meta name="twitter:description" content="{{ page_desc }}">
+  <meta name="twitter:image" content="{{ card }}">
+
+  {#
+    SoftwareSourceCode is the honest type for a library: it carries the language,
+    the licence and the repository, which is what a search engine can actually use
+    to disambiguate "hwpkit" from a person's initials. TechArticle covers the docs
+    page itself so each one is a distinct thing rather than a fragment of the site.
+  #}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "{{ config.site_url }}#library",
+        "name": "hwpkit",
+        "description": {{ config.site_description | tojson }},
+        "url": "{{ config.site_url }}",
+        "codeRepository": "{{ config.repo_url }}",
+        "programmingLanguage": "Python",
+        "runtimePlatform": "Python 3.9+",
+        "license": "https://opensource.org/licenses/MIT",
+        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
+      },
+      {
+        "@type": "TechArticle",
+        "@id": "{{ page_url }}#page",
+        "headline": {{ page_title | tojson }},
+        "description": {{ page_desc | tojson }},
+        "url": "{{ page_url }}",
+        "inLanguage": "{% if page and page.meta and page.meta.lang %}{{ page.meta.lang }}{% else %}en{% endif %}",
+        "isPartOf": { "@id": "{{ config.site_url }}#library" },
+        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+      }
+    ]
+  }
+  </script>
+{% endblock %}

@@ -1,3 +1,8 @@
+---
+description: >-
+  The four HWP 5.0 traps that cost a week each: why an edited file opens as corrupted, compression and the distribution flag, HWPUNIT arithmetic, and control-character handling.
+---
+
 # HWP 5.0 Gotchas
 
 The four things that take a week to figure out the first time. If

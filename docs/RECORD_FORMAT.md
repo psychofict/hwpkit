@@ -1,3 +1,8 @@
+---
+description: >-
+  Working notes on the HWP 5.0 record-level binary format used in the BodyText/Section and DocInfo streams: tag ids, level nesting, size encoding, and what Hancom accepts in practice.
+---
+
 # HWP 5.0 Record Format
 
 Working notes for the record-level binary format used in `BodyText/Section*`

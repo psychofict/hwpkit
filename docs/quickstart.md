@@ -1,3 +1,8 @@
+---
+description: >-
+  Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. Covers the pip extras, opening a document, pulling its text, and saving an edit Hancom accepts.
+---
+
 # Quickstart
 
 ## Install

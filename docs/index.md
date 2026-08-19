@@ -1,3 +1,8 @@
+---
+description: >-
+  hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.
+---
+
 # hwpkit
 
 **The pure-Python toolkit for Korean HWP &amp; HWPX (Hancom Office) documents.**

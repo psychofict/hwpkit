@@ -1,3 +1,8 @@
+---
+description: >-
+  HWP 5.0 binary and HWPX XML are two serializations of one document model (Hancom's OWPML). How CharShape, BorderFill and HWPUNIT map between them, and why knowledge transfers even where code does not.
+---
+
 # One model, two serializations: HWP 5.0 ↔ HWPX
 
 `.hwp` (binary) and `.hwpx` (XML) are **not two formats** so much as two
