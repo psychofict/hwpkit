@@ -1,6 +1,6 @@
 ---
 description: >-
-  hwpkit API reference, generated from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, and the form-fill and seal-insertion helpers.
+  hwpkit API reference from the source docstrings: the unified open() entry point, the document and editor objects, text extraction, forms and seals.
 ---
 
 # API reference

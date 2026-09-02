@@ -1,6 +1,6 @@
 ---
 description: >-
-  How hwpkit differs from pyhwp, pyhwpx and olefile for reading and editing .hwp files in Python: pure-Python vs COM automation, write support, HWPX coverage and what each one can actually do.
+  How hwpkit differs from pyhwp, pyhwpx and olefile: pure Python against COM automation, write support, HWPX coverage, and what each one can do.
 ---
 
 # hwpkit vs pyhwp, pyhwpx & olefile

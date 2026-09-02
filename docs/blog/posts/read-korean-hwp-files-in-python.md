@@ -1,5 +1,7 @@
 ---
 date: 2026-06-09
+# Pinned: the URL is derived from the title and this one is indexed.
+slug: how-to-read-and-extract-text-from-korean-hwp-files-in-python
 authors: [ebenworks]
 categories:
   - Tutorials
@@ -8,7 +10,7 @@ description: >-
   and HWPX (Hancom Office) files in Python — without Hancom or Windows.
 ---
 
-# How to read and extract text from Korean HWP files in Python
+# Read and extract Korean HWP text in Python
 
 If you've ever tried to open a Korean `.hwp` file in Python, you already know
 the problem: `python-docx` doesn't touch it, `pdfplumber` is for PDFs, and
