@@ -1,13 +1,13 @@
 # CLAUDE.md
 
-Guidance for Claude Code (and contributors) working in this repository.
+Working instructions for this repository.
 
 ## What this is
 
-`hwpkit` is a **pure-Python library for Korean HWP / HWPX (Hancom Office)
-documents** — read, extract text, edit (fill forms), and insert images, across
-**both** the binary `.hwp` (HWP 5.0) and XML `.hwpx` (OWPML) formats, with **no
-Hancom and no Windows** required. Published on PyPI as `hwpkit`; docs at
+`hwpkit` is a pure-Python library for Korean HWP / HWPX (Hancom Office)
+documents. It reads documents, extracts text, fills forms and inserts images
+in both binary `.hwp` (HWP 5.0) and XML `.hwpx` (OWPML) files. It requires
+neither Hancom nor Windows. Published on PyPI as `hwpkit`; docs at
 **https://hwpkit.ebenworks.co**. MIT licensed. Author: Ebenworks (GitHub
 `psychofict/hwpkit`).
 
@@ -69,11 +69,11 @@ pip install -r docs/requirements.txt
 mkdocs serve            # or: mkdocs build
 ```
 
-## Conventions & invariants
+## Coding rules
 
-- **Optional deps are lazy.** Core install is `olefile` only. `lxml` (`.hwpx`)
+- **Load optional dependencies only when needed.** Core install is `olefile` only. `lxml` (`.hwpx`)
   and `Pillow` (images) are imported *inside* the functions that use them, and
-  declared as extras `[hwpx]` / `[image]` / `[full]`. Keep them lazy so a
+  declared as extras `[hwpx]` / `[image]` / `[full]`. Keep those imports inside the functions so a
   binary-only `.hwp` workflow needs neither — never add a top-level
   `import lxml`/`PIL` to a module imported by `hwpkit/__init__.py`.
 - **API is stable (SemVer, ≥1.0).** No breaking changes to the public API
@@ -81,7 +81,7 @@ mkdocs serve            # or: mkdocs build
 - **Version lives in two places** — bump both: `pyproject.toml` `version` and
   `hwpkit/__init__.py` `__version__`. Also add a `CHANGELOG.md` entry.
 
-## Format gotchas (the hard-won knowledge — see docs/GOTCHAS.md)
+## File-format problems and fixes (see docs/GOTCHAS.md)
 
 - **CFB rewrite must preserve the directory red-black tree.** Hancom validates
   it on open. `cfb.dump` rebuilds the container from `entries`, copying
@@ -104,9 +104,9 @@ mkdocs serve            # or: mkdocs build
   id. There is **no** `<hh:binItem>` in `header.xml` and **no** entry in
   `META-INF/manifest.xml` (it's empty `<odf:manifest/>`). Mirror real Hancom
   output, which is how `HwpxFile.place_image` was built.
-- **Binary picture insertion uses a bundled donor** (`_picture_donor.py`) cloned
-  from genuine Hancom output and re-targeted (bin-id + extents) — chosen over
-  hand-synthesis because it's byte-identical to what Hancom accepts.
+- **Binary picture insertion uses a bundled donor** (`_picture_donor.py`) copied
+  from Hancom output and adjusted (bin-id + extents). This preserves the byte
+  structure Hancom accepts without reconstructing the picture records by hand.
 
 ## Testing & verification
 
