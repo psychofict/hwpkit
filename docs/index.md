@@ -3,30 +3,46 @@ description: >-
   hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.
 ---
 
-# hwpkit
+<!-- A literal <h1>, not "# hwpkit": the toc extension would append a permalink pilcrow to a
+     Markdown heading, so the page's H1 text read "hwpkit¶" instead of the product name.
+     Material only adds its own H1 when the page has none, so this one is the only one. -->
+<h1 id="hwpkit">hwpkit</h1>
 
-**The pure-Python toolkit for Korean HWP &amp; HWPX (Hancom Office) documents.**
-Read it, edit it, extract its text — *no Hancom, no Windows, no COM automation.*
+**hwpkit is a pure-Python library that reads, edits and extracts text from Korean
+HWP and HWPX files**, the document formats of Hancom Office (한글). One API opens
+both the binary HWP 5.0 format and the XML-based HWPX (OWPML) format. It needs no
+Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to
+3.13. It is MIT licensed and made by [Ebenworks](https://ebenworks.co/).
 
 [Get started](quickstart.md){ .md-button .md-button--primary }
 [View on GitHub](https://github.com/psychofict/hwpkit){ .md-button }
 [PyPI](https://pypi.org/project/hwpkit/){ .md-button }
 
----
+## The problem hwpkit solves
 
 Korean government, universities, courts, and most Korean enterprises run on
-**HWP** (한글, Hangul Word Processor) — the `.hwp` and `.hwpx` formats from
+**HWP** (한글, Hangul Word Processor), the `.hwp` and `.hwpx` formats from
 Hancom Office. The rest of the world's tooling (`python-docx`, `pdfplumber`,
 `unstructured`, LibreOffice) **can't read them**, and the few that try need a
 Windows box with Hancom installed driving it over COM.
 
 **`hwpkit` is the missing piece.** Pure Python, cross-platform, zero external
-apps — install it and start reading, editing, and extracting Korean documents
+apps: install it and start reading, editing, and extracting Korean documents
 in three lines.
+
+## Install and extract text
+
+### Install
 
 ```bash
 pip install hwpkit[full]
 ```
+
+The base install needs only `olefile`. The `[hwpx]` extra adds `lxml` for
+`.hwpx` files, `[image]` adds `Pillow` for seals and signatures, and `[full]`
+adds both.
+
+### Extract text from a file
 
 ```python
 from hwpkit import extract_text_from_file
@@ -73,6 +89,8 @@ That's it. No Hancom license. No Windows. No headless office server.
 
 ## One API, both formats
 
+### Fill a form, tick a box, stamp a seal
+
 ```python
 from hwpkit import open_document
 
@@ -84,6 +102,8 @@ doc.replace_text(75, "2026. 05. 19.")           # overwrite a cell
 doc.place_image(42, "seal.png", width_mm=30)    # stamp a 도장 / signature
 doc.save("out.hwp")
 ```
+
+### Which class you get back
 
 `open_document` returns an [`HwpFile`](api.md#hwpkit.hwp.HwpFile) or
 [`HwpxFile`](api.md#hwpkit.hwpx.HwpxFile) depending on the file — both expose

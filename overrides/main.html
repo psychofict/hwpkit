@@ -17,14 +17,18 @@
 {% block extrahead %}
   {{ super() }}
 
-  {%- set page_title = (page.meta and page.meta.title) or page.title or config.site_name -%}
+  {#- The nav labels the home page "Home", and MkDocs prefers the nav label to the H1, so
+      og:title, twitter:title and the schema headline all said "Home". The home page is
+      the product, so it carries the product name, the same as <title> and the H1. -#}
+  {%- set is_home = page and page.is_homepage -%}
+  {%- set page_title = config.site_name if is_home else ((page.meta and page.meta.title) or page.title or config.site_name) -%}
   {%- set page_desc = (page.meta and page.meta.description) or config.site_description -%}
   {%- set page_url = page.canonical_url if page else config.site_url -%}
   {%- set card = config.site_url ~ 'assets/social-preview.png' -%}
 
   <meta property="og:type" content="{% if page and page.meta and page.meta.date %}article{% else %}website{% endif %}">
   <meta property="og:site_name" content="{{ config.site_name }}">
-  <meta property="og:title" content="{{ page_title }}{% if page and page.title and page.title != config.site_name %} · {{ config.site_name }}{% endif %}">
+  <meta property="og:title" content="{{ page_title }}{% if page and page_title != config.site_name %} · {{ config.site_name }}{% endif %}">
   <meta property="og:description" content="{{ page_desc }}">
   <meta property="og:url" content="{{ page_url }}">
   <meta property="og:image" content="{{ card }}">
@@ -39,15 +43,44 @@
   <meta name="twitter:image" content="{{ card }}">
 
   {#
-    SoftwareSourceCode is the honest type for a library: it carries the language,
-    the licence and the repository, which is what a search engine can actually use
-    to disambiguate "hwpkit" from a person's initials. TechArticle covers the docs
-    page itself so each one is a distinct thing rather than a fragment of the site.
+    Every page carries the company as a small, self-contained Organization node, and every
+    publisher/author field refers to that node's @id. Search engines read each page alone and
+    do not fetch an @id from another site, so a bare {"@id": ...} would resolve to nothing; the
+    same @id on several pages merges into one entity. The corporate site defines the full node
+    under this id. Deliberately no sameAs and nothing beyond name and url here.
+
+    SoftwareSourceCode is the honest type for a library: it carries the language, the licence
+    and the repository, which is what a search engine can actually use to disambiguate "hwpkit"
+    from a person's initials. TechArticle covers the docs page itself so each one is a distinct
+    thing rather than a fragment of the site. The home page also gets a WebSite node.
+
+    The maintainer is Ebenworks, as the README ("Made by Ebenworks"), CLAUDE.md and
+    site_author in mkdocs.yml all say. pyproject.toml lists the GitHub account name
+    (psychofict) as the package author, which is an account, not a person or a company, so it
+    is not used here.
   #}
+  {%- set org = "https://ebenworks.co/#organization" -%}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "{{ org }}",
+        "name": "Ebenworks",
+        "url": "https://ebenworks.co/"
+      },
+      {% if is_home %}
+      {
+        "@type": "WebSite",
+        "@id": "{{ config.site_url }}#website",
+        "name": {{ config.site_name | tojson }},
+        "url": "{{ config.site_url }}",
+        "description": {{ config.site_description | tojson }},
+        "inLanguage": "en",
+        "publisher": { "@id": "{{ org }}" }
+      },
+      {% endif %}
       {
         "@type": "SoftwareSourceCode",
         "@id": "{{ config.site_url }}#library",
@@ -58,7 +91,8 @@
         "programmingLanguage": "Python",
         "runtimePlatform": "Python 3.9+",
         "license": "https://opensource.org/licenses/MIT",
-        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "author": { "@id": "{{ org }}" },
+        "publisher": { "@id": "{{ org }}" },
         "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
       },
       {
@@ -69,7 +103,7 @@
         "url": "{{ page_url }}",
         "inLanguage": "{% if page and page.meta and page.meta.lang %}{{ page.meta.lang }}{% else %}en{% endif %}",
         "isPartOf": { "@id": "{{ config.site_url }}#library" },
-        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+        "publisher": { "@id": "{{ org }}" }
       }
     ]
   }
