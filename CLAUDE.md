@@ -150,3 +150,11 @@ the generated `sitemap.xml` cover crawlers.
 Never commit secrets. The PyPI account recovery-codes file pattern
 (`*Recovery-Codes*`), `*.pypirc`, and `.env` are gitignored; keep credentials
 out of the working tree entirely.
+
+## Search and AI visibility (2026-10-05)
+
+The fleet rules for `llms.txt`, the Organization node, page comments and the About link are in the fleet block above. This is where they live in this repository.
+
+- `docs/llms.txt` lists the pages. `overrides/main.html` carries the per-page JSON-LD, including the minimal Organization node for Ebenworks as maintainer.
+- The home page's H1 is a literal `<h1>`, because the table-of-contents extension appends a pilcrow to Markdown headings.
+- Pushing to `main` runs the docs workflow and publishes to GitHub Pages.
