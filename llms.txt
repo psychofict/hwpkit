@@ -1,0 +1,31 @@
+# hwpkit
+
+> hwpkit is a pure-Python library that reads, edits and extracts text from Korean HWP and HWPX files, the document formats of Hancom Office (한글). It needs no Hancom install, no Windows and no COM automation, and it is MIT licensed.
+
+hwpkit opens binary HWP 5.0 and XML-based HWPX (OWPML) files through one API (`open_document`), fills form fields, ticks checkboxes, inserts seal and signature images, and extracts clean text for search, RAG and LLM pipelines. It runs on Python 3.9 to 3.13. Install it with `pip install hwpkit[full]`.
+
+Made by [Ebenworks](https://ebenworks.co/). Source code: https://github.com/psychofict/hwpkit. Package: https://pypi.org/project/hwpkit/
+
+## Docs
+
+- [hwpkit](https://hwpkit.ebenworks.co/): What hwpkit does, how to install it, and a first example for each format.
+- [Quickstart](https://hwpkit.ebenworks.co/quickstart/): Install hwpkit and read, extract or edit a Korean HWP or HWPX file in a few lines of Python. The pip extras, opening a document, saving an edit.
+- [hwpkit vs alternatives](https://hwpkit.ebenworks.co/comparison/): How hwpkit differs from pyhwp, pyhwpx and olefile: pure Python against COM automation, write support, HWPX coverage, and what each one can do.
+- [API reference](https://hwpkit.ebenworks.co/api/): The public functions and classes, generated from the source docstrings.
+
+## Tutorials
+
+- [Read and extract Korean HWP text in Python](https://hwpkit.ebenworks.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/): A practical guide to reading, extracting text from, and editing Korean HWP and HWPX (Hancom Office) files in Python, without Hancom or Windows.
+- [Building a RAG pipeline over Korean HWP documents](https://hwpkit.ebenworks.co/blog/building-a-rag-pipeline-over-korean-hwp-documents/): A retrieval-augmented generation pipeline over Korean HWP and HWPX documents, from text extraction through chunking and embeddings.
+- [파이썬으로 HWP·HWPX 파일 읽기와 텍스트 추출하기](https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/): 한컴오피스나 윈도우 없이 순수 파이썬으로 HWP·HWPX 파일을 읽고 텍스트를 추출하고 편집하는 방법 (Korean).
+
+## File format internals
+
+- [Object model, HWP and HWPX](https://hwpkit.ebenworks.co/OBJECT_MODEL/): HWP 5.0 binary and HWPX XML are two serializations of one document model. How CharShape, BorderFill and HWPUNIT map between them.
+- [Binary record format](https://hwpkit.ebenworks.co/RECORD_FORMAT/): Working notes on the HWP 5.0 record-level binary format in the BodyText and DocInfo streams: tag ids, level nesting, and size encoding.
+- [Gotchas](https://hwpkit.ebenworks.co/GOTCHAS/): The four HWP 5.0 traps that cost a week each: an edited file opening as corrupted, the distribution flag, HWPUNIT arithmetic, control characters.
+
+## Optional
+
+- [Changelog](https://hwpkit.ebenworks.co/changelog/): Release history, and which HWP and HWPX capabilities each version added.
+- [Blog](https://hwpkit.ebenworks.co/blog/): Tutorials and notes on working with Korean HWP and HWPX files in Python.

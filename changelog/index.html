@@ -77,11 +77,17 @@
   <meta name="twitter:description" content="Release history for hwpkit — every version, what changed in it, and which HWP and HWPX capabilities each one added.">
   <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
 
-  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ebenworks.co/#organization",
+        "name": "Ebenworks",
+        "url": "https://ebenworks.co/"
+      },
+      
       {
         "@type": "SoftwareSourceCode",
         "@id": "https://hwpkit.ebenworks.co/#library",
@@ -92,7 +98,8 @@
         "programmingLanguage": "Python",
         "runtimePlatform": "Python 3.9+",
         "license": "https://opensource.org/licenses/MIT",
-        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "author": { "@id": "https://ebenworks.co/#organization" },
+        "publisher": { "@id": "https://ebenworks.co/#organization" },
         "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
       },
       {
@@ -103,7 +110,7 @@
         "url": "https://hwpkit.ebenworks.co/changelog/",
         "inLanguage": "en",
         "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
-        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+        "publisher": { "@id": "https://ebenworks.co/#organization" }
       }
     ]
   }
@@ -1116,7 +1123,7 @@ model, now documented in <a href="https://github.com/psychofict/hwpkit/blob/main
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Made by Ebenworks · MIT licensed
+      Made by <a href="https://ebenworks.co/">Ebenworks</a> · MIT licensed
     </div>
   
   

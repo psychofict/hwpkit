@@ -63,7 +63,7 @@
     
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="hwpkit">
-  <meta property="og:title" content="Home · hwpkit">
+  <meta property="og:title" content="hwpkit">
   <meta property="og:description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
   <meta property="og:url" content="https://hwpkit.ebenworks.co/">
   <meta property="og:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
@@ -73,15 +73,31 @@
   <meta property="og:locale" content="en_US">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Home">
+  <meta name="twitter:title" content="hwpkit">
   <meta name="twitter:description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
   <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
 
-  
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://ebenworks.co/#organization",
+        "name": "Ebenworks",
+        "url": "https://ebenworks.co/"
+      },
+      
+      {
+        "@type": "WebSite",
+        "@id": "https://hwpkit.ebenworks.co/#website",
+        "name": "hwpkit",
+        "url": "https://hwpkit.ebenworks.co/",
+        "description": "Read, edit and extract text from Korean HWP and HWPX files in pure Python. No Hancom, no Windows. Fill forms, insert seals, feed Korean docs to a model.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://ebenworks.co/#organization" }
+      },
+      
       {
         "@type": "SoftwareSourceCode",
         "@id": "https://hwpkit.ebenworks.co/#library",
@@ -92,18 +108,19 @@
         "programmingLanguage": "Python",
         "runtimePlatform": "Python 3.9+",
         "license": "https://opensource.org/licenses/MIT",
-        "author": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" },
+        "author": { "@id": "https://ebenworks.co/#organization" },
+        "publisher": { "@id": "https://ebenworks.co/#organization" },
         "keywords": "HWP, HWPX, Hancom Office, 한글, Korean documents, Python, text extraction, OWPML"
       },
       {
         "@type": "TechArticle",
         "@id": "https://hwpkit.ebenworks.co/#page",
-        "headline": "Home",
+        "headline": "hwpkit",
         "description": "hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / \ud55c\uae00) files in pure Python. No Hancom install, no Windows, no COM automation.",
         "url": "https://hwpkit.ebenworks.co/",
         "inLanguage": "en",
         "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
-        "publisher": { "@type": "Organization", "name": "Ebenworks", "url": "https://ebenworks.co/" }
+        "publisher": { "@id": "https://ebenworks.co/#organization" }
       }
     ]
   }
@@ -128,7 +145,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hwpkit" class="md-skip">
+        <a href="#the-problem-hwpkit-solves" class="md-skip">
           Skip to content
         </a>
       
@@ -318,8 +335,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -362,14 +377,62 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-hwpkit-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem hwpkit solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-extract-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and extract text
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install and extract text">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-text-from-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract text from a file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#why-hwpkit" class="md-nav__link">
@@ -390,6 +453,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="One API, both formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fill-a-form-tick-a-box-stamp-a-seal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fill a form, tick a box, stamp a seal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-class-you-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which class you get back
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -720,14 +811,62 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-problem-hwpkit-solves" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The problem hwpkit solves
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-and-extract-text" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install and extract text
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Install and extract text">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-text-from-a-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract text from a file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#why-hwpkit" class="md-nav__link">
@@ -748,6 +887,34 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="One API, both formats">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fill-a-form-tick-a-box-stamp-a-seal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fill a form, tick a box, stamp a seal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-class-you-get-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which class you get back
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -793,23 +960,36 @@
   
 
 
-<h1 id="hwpkit">hwpkit<a class="headerlink" href="#hwpkit" title="Permanent link">&para;</a></h1>
-<p><strong>The pure-Python toolkit for Korean HWP &amp; HWPX (Hancom Office) documents.</strong>
-Read it, edit it, extract its text — <em>no Hancom, no Windows, no COM automation.</em></p>
+<!-- A literal <h1>, not "# hwpkit": the toc extension would append a permalink pilcrow to a
+     Markdown heading, so the page's H1 text read "hwpkit¶" instead of the product name.
+     Material only adds its own H1 when the page has none, so this one is the only one. -->
+<h1 id="hwpkit">hwpkit</h1>
+
+<p><strong>hwpkit is a pure-Python library that reads, edits and extracts text from Korean
+HWP and HWPX files</strong>, the document formats of Hancom Office (한글). One API opens
+both the binary HWP 5.0 format and the XML-based HWPX (OWPML) format. It needs no
+Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to
+3.13. It is MIT licensed and made by <a href="https://ebenworks.co/">Ebenworks</a>.</p>
 <p><a class="md-button md-button--primary" href="quickstart/">Get started</a>
 <a class="md-button" href="https://github.com/psychofict/hwpkit">View on GitHub</a>
 <a class="md-button" href="https://pypi.org/project/hwpkit/">PyPI</a></p>
-<hr />
+<h2 id="the-problem-hwpkit-solves">The problem hwpkit solves<a class="headerlink" href="#the-problem-hwpkit-solves" title="Permanent link">&para;</a></h2>
 <p>Korean government, universities, courts, and most Korean enterprises run on
-<strong>HWP</strong> (한글, Hangul Word Processor) — the <code>.hwp</code> and <code>.hwpx</code> formats from
+<strong>HWP</strong> (한글, Hangul Word Processor), the <code>.hwp</code> and <code>.hwpx</code> formats from
 Hancom Office. The rest of the world's tooling (<code>python-docx</code>, <code>pdfplumber</code>,
 <code>unstructured</code>, LibreOffice) <strong>can't read them</strong>, and the few that try need a
 Windows box with Hancom installed driving it over COM.</p>
 <p><strong><code>hwpkit</code> is the missing piece.</strong> Pure Python, cross-platform, zero external
-apps — install it and start reading, editing, and extracting Korean documents
+apps: install it and start reading, editing, and extracting Korean documents
 in three lines.</p>
+<h2 id="install-and-extract-text">Install and extract text<a class="headerlink" href="#install-and-extract-text" title="Permanent link">&para;</a></h2>
+<h3 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>hwpkit<span class="o">[</span>full<span class="o">]</span>
 </code></pre></div>
+<p>The base install needs only <code>olefile</code>. The <code>[hwpx]</code> extra adds <code>lxml</code> for
+<code>.hwpx</code> files, <code>[image]</code> adds <code>Pillow</code> for seals and signatures, and <code>[full]</code>
+adds both.</p>
+<h3 id="extract-text-from-a-file">Extract text from a file<a class="headerlink" href="#extract-text-from-a-file" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">extract_text_from_file</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">"계약서.hwp"</span><span class="p">))</span>      <span class="c1"># …or .hwpx — auto-detected</span>
 </code></pre></div>
@@ -850,6 +1030,7 @@ loaded lazily only when you use <code>.hwpx</code> or images.</p>
 </ul>
 </div>
 <h2 id="one-api-both-formats">One API, both formats<a class="headerlink" href="#one-api-both-formats" title="Permanent link">&para;</a></h2>
+<h3 id="fill-a-form-tick-a-box-stamp-a-seal">Fill a form, tick a box, stamp a seal<a class="headerlink" href="#fill-a-form-tick-a-box-stamp-a-seal" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">hwpkit</span><span class="w"> </span><span class="kn">import</span> <span class="n">open_document</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">doc</span> <span class="o">=</span> <span class="n">open_document</span><span class="p">(</span><span class="s2">"template.hwp"</span><span class="p">)</span>            <span class="c1"># or "template.hwpx" — auto-detected</span>
@@ -860,6 +1041,7 @@ loaded lazily only when you use <code>.hwpx</code> or images.</p>
 <a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="n">doc</span><span class="o">.</span><span class="n">place_image</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s2">"seal.png"</span><span class="p">,</span> <span class="n">width_mm</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>    <span class="c1"># stamp a 도장 / signature</span>
 <a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">doc</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">"out.hwp"</span><span class="p">)</span>
 </code></pre></div>
+<h3 id="which-class-you-get-back">Which class you get back<a class="headerlink" href="#which-class-you-get-back" title="Permanent link">&para;</a></h3>
 <p><code>open_document</code> returns an <a href="api/#hwpkit.hwp.HwpFile"><code>HwpFile</code></a> or
 <a href="api/#hwpkit.hwpx.HwpxFile"><code>HwpxFile</code></a> depending on the file — both expose
 the <strong>same methods</strong>.</p>
@@ -918,7 +1100,7 @@ the <strong>same methods</strong>.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Made by Ebenworks · MIT licensed
+      Made by <a href="https://ebenworks.co/">Ebenworks</a> · MIT licensed
     </div>
   
   
