@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>hwpkit</title>
+  <link>https://hwpkit.ebenworks.co/</link>
+  <description>Read, edit and extract text from Korean HWP and HWPX files in pure Python. No Hancom, no Windows. Fill forms, insert seals, feed Korean docs to a model.</description>
+  <language>en</language>
+  <lastBuildDate>Tue, 09 Jun 2026 00:00:00 GMT</lastBuildDate>
+  <atom:link href="https://hwpkit.ebenworks.co/feed.xml" rel="self" type="application/rss+xml"/>
+  <item>
+    <title>파이썬으로 HWP·HWPX 파일 읽기와 텍스트 추출하기</title>
+    <link>https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/</link>
+    <guid isPermaLink="true">https://hwpkit.ebenworks.co/blog/read-extract-hwp-files-python-ko/</guid>
+    <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
+    <description>파이썬으로 한글 HWP·HWPX 파일을 읽고 텍스트를 추출하고 편집하는 방법 — 한컴오피스나 윈도우 없이 순수 파이썬으로.</description>
+  </item>
+  <item>
+    <title>Read and extract Korean HWP text in Python</title>
+    <link>https://hwpkit.ebenworks.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/</link>
+    <guid isPermaLink="true">https://hwpkit.ebenworks.co/blog/how-to-read-and-extract-text-from-korean-hwp-files-in-python/</guid>
+    <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
+    <description>A practical guide to reading, extracting text from, and editing Korean HWP and HWPX (Hancom Office) files in Python — without Hancom or Windows.</description>
+  </item>
+  <item>
+    <title>Building a RAG pipeline over Korean HWP documents</title>
+    <link>https://hwpkit.ebenworks.co/blog/building-a-rag-pipeline-over-korean-hwp-documents/</link>
+    <guid isPermaLink="true">https://hwpkit.ebenworks.co/blog/building-a-rag-pipeline-over-korean-hwp-documents/</guid>
+    <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
+    <description>Build a Retrieval-Augmented Generation (RAG) pipeline over Korean HWP / HWPX documents in Python — from text extraction through chunking and embeddings.</description>
+  </item>
+</channel>
+</rss>

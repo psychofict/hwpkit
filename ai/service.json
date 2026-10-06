@@ -1,0 +1,12 @@
+{
+  "name": "hwpkit",
+  "url": "https://hwpkit.ebenworks.co",
+  "contact": "contact@ebenworks.co",
+  "capabilities": [
+    "Reads, edits and extracts text from Korean HWP and HWPX files in pure Python",
+    "Runs without a Hancom licence, Windows, COM automation or an office server",
+    "Fills form cells, ticks checkboxes and inserts seal and signature images",
+    "Produces clean Korean text ready for retrieval pipelines and vector databases"
+  ],
+  "updated": "2026-10-06"
+}

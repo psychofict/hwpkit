@@ -1,0 +1,37 @@
+{
+  "faqs": [
+    {
+      "question": "Which file formats does it support?",
+      "answer": "Binary .hwp (HWP 5.0) and XML .hwpx (OWPML). open_document() hands you the same editor either way — you never branch on format. open_document returns an HwpFile or HwpxFile depending on the file — both expose the same methods."
+    },
+    {
+      "question": "Do I need Hancom Office or Windows?",
+      "answer": "No. It needs no Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to 3.13. Linux, macOS, Windows, containers, Lambda. No Hancom, no pywin32, no COM, no LibreOffice subprocess. Tools such as python-docx, pdfplumber, unstructured and LibreOffice can't read HWP files, and the few that try need a Windows box with Hancom installed driving it over COM. pyhwpx, by contrast, automates the Hancom Office application over Windows COM, so it requires Windows and a Hancom installation and can't run on a Linux server, in CI, or in a container."
+    },
+    {
+      "question": "How do I install it?",
+      "answer": "pip install hwpkit[full]. The base install needs only olefile, and [full] adds both lxml and Pillow. Python 3.9+."
+    },
+    {
+      "question": "What licence is it under, and is the API stable?",
+      "answer": "It is MIT licensed and made by Ebenworks. Use it anywhere, commercially or not. The public API is committed to Semantic Versioning: no breaking changes without a 2.0."
+    },
+    {
+      "question": "Can it fill forms and insert seals or signatures?",
+      "answer": "Fill government & university forms, tick checkboxes, rewrite cells — and the binary container is rebuilt while preserving the directory tree Hancom validates on open. Stamp a 도장/직인/서명 image into a form cell — into both .hwp and .hwpx."
+    },
+    {
+      "question": "Can I use it for RAG and LLM pipelines?",
+      "answer": "Clean Korean text out of any .hwp/.hwpx, ready to chunk and embed — the preprocessing step your retrieval pipeline was missing. Extraction strips inline controls (tables, images, footnote refs, autonumbers, page-number controls, bookmarks) and returns clean, one-line-per-paragraph text — table-cell content included — ready for chunkers, embeddings, or any context window."
+    },
+    {
+      "question": "Why does my edited HWP open as \"corrupted\"?",
+      "answer": "You probably edited a BodyText/Section0 stream whose byte length changed, then wrote it back through a naive CFB writer. The fix: read the original 128-byte directory records straight from the file (not through olefile's parsed view) and preserve their sid_left, sid_right, sid_child, and color fields byte-for-byte in the output. The tree topology is already valid; reusing it sidesteps the comparison-rule trap entirely."
+    },
+    {
+      "question": "How is it different from pyhwp, pyhwpx and olefile?",
+      "answer": "hwpkit is the only option that reads, edits, and stamps images into both .hwp and .hwpx in portable, pure Python — no Hancom, no Windows, no COM bridge. olefile is a low-level MS-CFB container reader/writer: it can read raw HWP streams and rewrite a stream only if its byte length is unchanged, which it almost never is once you insert Korean text. If you need a full structural HWP→XML conversion, reach for pyhwp."
+    }
+  ],
+  "updated": "2026-10-06"
+}

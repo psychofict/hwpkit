@@ -1,0 +1,16 @@
+{
+  "name": "hwpkit",
+  "description": "hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.",
+  "url": "https://hwpkit.ebenworks.co",
+  "type": "WebSite",
+  "publisher": {
+    "name": "Ebenworks",
+    "url": "https://ebenworks.co",
+    "@id": "https://ebenworks.co/#organization"
+  },
+  "language": "en",
+  "llms": "https://hwpkit.ebenworks.co/llms.txt",
+  "services": "https://hwpkit.ebenworks.co/ai/service.json",
+  "updated": "2026-10-06",
+  "faq": "https://hwpkit.ebenworks.co/ai/faq.json"
+}

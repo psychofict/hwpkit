@@ -77,25 +77,115 @@
   <meta name="twitter:description" content="hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / 한글) files in pure Python. No Hancom install, no Windows, no COM automation.">
   <meta name="twitter:image" content="https://hwpkit.ebenworks.co/assets/social-preview.png">
 
+  <link rel="alternate" type="application/rss+xml" title="hwpkit" href="https://hwpkit.ebenworks.co/feed.xml">
+  
+  <link rel="alternate" hreflang="en" href="https://hwpkit.ebenworks.co/">
+  <link rel="alternate" hreflang="x-default" href="https://hwpkit.ebenworks.co/">
+  
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://ebenworks.co/#organization",
+  "name": "Ebenworks",
+  "alternateName": "Ebenworks Systems",
+  "legalName": "Ebenworks Systems (Private) Limited",
+  "url": "https://ebenworks.co",
+  "logo": "https://ebenworks.co/brand/logos/ebenworks-lockup.png",
+  "email": "contact@ebenworks.co",
+  "description": "An AI product company building practical software for businesses, care teams and communities.",
+  "foundingDate": "2026-05-29",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "13 Pembury Road, Paddonhurst",
+    "addressLocality": "Bulawayo",
+    "addressCountry": "ZW"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "business inquiries",
+    "email": "contact@ebenworks.co",
+    "url": "https://ebenworks.co/contact"
+  },
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "South Africa",
+      "identifier": "ZA"
+    },
+    {
+      "@type": "Country",
+      "name": "Botswana",
+      "identifier": "BW"
+    },
+    {
+      "@type": "Country",
+      "name": "Nigeria",
+      "identifier": "NG"
+    },
+    {
+      "@type": "Country",
+      "name": "Kenya",
+      "identifier": "KE"
+    },
+    {
+      "@type": "Country",
+      "name": "Zimbabwe",
+      "identifier": "ZW"
+    },
+    {
+      "@type": "Country",
+      "name": "South Korea",
+      "identifier": "KR"
+    }
+  ],
+  "founder": {
+    "@id": "https://ebenworks.co/#founder"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/ebenworks",
+    "https://www.crunchbase.com/organization/ebenworks",
+    "https://github.com/ebenworks-systems",
+    "https://huggingface.co/ebenworks"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://ebenworks.co/#founder",
+  "name": "Ebenezer Tarubinga",
+  "alternateName": "Ebstar",
+  "jobTitle": "Founder, CEO & CTO",
+  "url": "https://ebstar.co",
+  "worksFor": {
+    "@id": "https://ebenworks.co/#organization"
+  },
+  "sameAs": [
+    "https://www.wikidata.org/wiki/Q108761295",
+    "https://www.linkedin.com/in/ebstar",
+    "https://github.com/psychofict",
+    "https://ebstar.co"
+  ]
+}
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://ebenworks.co/#organization",
-        "name": "Ebenworks",
-        "url": "https://ebenworks.co/"
-      },
       
       {
         "@type": "WebSite",
         "@id": "https://hwpkit.ebenworks.co/#website",
         "name": "hwpkit",
         "url": "https://hwpkit.ebenworks.co/",
-        "description": "Read, edit and extract text from Korean HWP and HWPX files in pure Python. No Hancom, no Windows. Fill forms, insert seals, feed Korean docs to a model.",
+        "description": "hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / \ud55c\uae00) files in pure Python. No Hancom install, no Windows, no COM automation.",
         "inLanguage": "en",
-        "publisher": { "@id": "https://ebenworks.co/#organization" }
+        "dateModified": "2026-10-06",
+        "publisher": { "@id": "https://ebenworks.co/#organization" },
+        "author": { "@id": "https://ebenworks.co/#founder" }
       },
       
       {
@@ -119,9 +209,73 @@
         "description": "hwpkit reads, edits and extracts text from Korean HWP and HWPX (Hancom Office / \ud55c\uae00) files in pure Python. No Hancom install, no Windows, no COM automation.",
         "url": "https://hwpkit.ebenworks.co/",
         "inLanguage": "en",
+        "dateModified": "2026-10-06",
         "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#library" },
+        "author": { "@id": "https://ebenworks.co/#organization" },
         "publisher": { "@id": "https://ebenworks.co/#organization" }
       }
+      
+      ,{
+        "@type": "FAQPage",
+        "@id": "https://hwpkit.ebenworks.co/#faq",
+        "url": "https://hwpkit.ebenworks.co/#faq",
+        "name": "Frequently asked questions",
+        "inLanguage": "en",
+        "dateModified": "2026-10-06",
+        "isPartOf": { "@id": "https://hwpkit.ebenworks.co/#website" },
+        "mainEntity": [
+          
+          {
+            "@type": "Question",
+            "name": "Which file formats does it support?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Binary .hwp (HWP 5.0) and XML .hwpx (OWPML). open_document() hands you the same editor either way \u2014 you never branch on format. open_document returns an HwpFile or HwpxFile depending on the file \u2014 both expose the same methods." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "Do I need Hancom Office or Windows?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. It needs no Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to 3.13. Linux, macOS, Windows, containers, Lambda. No Hancom, no pywin32, no COM, no LibreOffice subprocess. Tools such as python-docx, pdfplumber, unstructured and LibreOffice can\u0027t read HWP files, and the few that try need a Windows box with Hancom installed driving it over COM. pyhwpx, by contrast, automates the Hancom Office application over Windows COM, so it requires Windows and a Hancom installation and can\u0027t run on a Linux server, in CI, or in a container." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "How do I install it?",
+            "acceptedAnswer": { "@type": "Answer", "text": "pip install hwpkit[full]. The base install needs only olefile, and [full] adds both lxml and Pillow. Python 3.9+." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "What licence is it under, and is the API stable?",
+            "acceptedAnswer": { "@type": "Answer", "text": "It is MIT licensed and made by Ebenworks. Use it anywhere, commercially or not. The public API is committed to Semantic Versioning: no breaking changes without a 2.0." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "Can it fill forms and insert seals or signatures?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Fill government \u0026 university forms, tick checkboxes, rewrite cells \u2014 and the binary container is rebuilt while preserving the directory tree Hancom validates on open. Stamp a \ub3c4\uc7a5/\uc9c1\uc778/\uc11c\uba85 image into a form cell \u2014 into both .hwp and .hwpx." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "Can I use it for RAG and LLM pipelines?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Clean Korean text out of any .hwp/.hwpx, ready to chunk and embed \u2014 the preprocessing step your retrieval pipeline was missing. Extraction strips inline controls (tables, images, footnote refs, autonumbers, page-number controls, bookmarks) and returns clean, one-line-per-paragraph text \u2014 table-cell content included \u2014 ready for chunkers, embeddings, or any context window." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "Why does my edited HWP open as \"corrupted\"?",
+            "acceptedAnswer": { "@type": "Answer", "text": "You probably edited a BodyText/Section0 stream whose byte length changed, then wrote it back through a naive CFB writer. The fix: read the original 128-byte directory records straight from the file (not through olefile\u0027s parsed view) and preserve their sid_left, sid_right, sid_child, and color fields byte-for-byte in the output. The tree topology is already valid; reusing it sidesteps the comparison-rule trap entirely." }
+          },
+          
+          {
+            "@type": "Question",
+            "name": "How is it different from pyhwp, pyhwpx and olefile?",
+            "acceptedAnswer": { "@type": "Answer", "text": "hwpkit is the only option that reads, edits, and stamps images into both .hwp and .hwpx in portable, pure Python \u2014 no Hancom, no Windows, no COM bridge. olefile is a low-level MS-CFB container reader/writer: it can read raw HWP streams and rewrite a stream only if its byte length is unchanged, which it almost never is once you insert Korean text. If you need a full structural HWP\u2192XML conversion, reach for pyhwp." }
+          }
+          
+        ]
+      }
+      
     ]
   }
   </script>
@@ -145,7 +299,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#the-problem-hwpkit-solves" class="md-skip">
+        <a href="#the-problem-it-solves" class="md-skip">
           Skip to content
         </a>
       
@@ -385,10 +539,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-problem-hwpkit-solves" class="md-nav__link">
+  <a href="#the-problem-it-solves" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The problem hwpkit solves
+        The problem it solves
       
     </span>
   </a>
@@ -435,10 +589,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-hwpkit" class="md-nav__link">
+  <a href="#why-use-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why hwpkit
+        Why use it
       
     </span>
   </a>
@@ -489,6 +643,17 @@
     <span class="md-ellipsis">
       
         Who uses this
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frequently asked questions
       
     </span>
   </a>
@@ -819,10 +984,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-problem-hwpkit-solves" class="md-nav__link">
+  <a href="#the-problem-it-solves" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The problem hwpkit solves
+        The problem it solves
       
     </span>
   </a>
@@ -869,10 +1034,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#why-hwpkit" class="md-nav__link">
+  <a href="#why-use-it" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Why hwpkit
+        Why use it
       
     </span>
   </a>
@@ -930,6 +1095,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#frequently-asked-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frequently asked questions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -973,7 +1149,7 @@ Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to
 <p><a class="md-button md-button--primary" href="quickstart/">Get started</a>
 <a class="md-button" href="https://github.com/psychofict/hwpkit">View on GitHub</a>
 <a class="md-button" href="https://pypi.org/project/hwpkit/">PyPI</a></p>
-<h2 id="the-problem-hwpkit-solves">The problem hwpkit solves<a class="headerlink" href="#the-problem-hwpkit-solves" title="Permanent link">&para;</a></h2>
+<h2 id="the-problem-it-solves">The problem it solves<a class="headerlink" href="#the-problem-it-solves" title="Permanent link">&para;</a></h2>
 <p>Korean government, universities, courts, and most Korean enterprises run on
 <strong>HWP</strong> (한글, Hangul Word Processor), the <code>.hwp</code> and <code>.hwpx</code> formats from
 Hancom Office. The rest of the world's tooling (<code>python-docx</code>, <code>pdfplumber</code>,
@@ -994,7 +1170,7 @@ adds both.</p>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">extract_text_from_file</span><span class="p">(</span><span class="s2">"계약서.hwp"</span><span class="p">))</span>      <span class="c1"># …or .hwpx — auto-detected</span>
 </code></pre></div>
 <p>That's it. No Hancom license. No Windows. No headless office server.</p>
-<h2 id="why-hwpkit">Why hwpkit<a class="headerlink" href="#why-hwpkit" title="Permanent link">&para;</a></h2>
+<h2 id="why-use-it">Why use it<a class="headerlink" href="#why-use-it" title="Permanent link">&para;</a></h2>
 <div class="grid cards">
 <ul>
 <li>
@@ -1052,13 +1228,54 @@ the <strong>same methods</strong>.</p>
 <li><strong>Data engineers</strong> migrating HWP archives to text / structured data.</li>
 <li><strong>Anyone</strong> who needs to edit a <code>.hwp</code> without clicking through Hancom.</li>
 </ul>
+<h2 id="frequently-asked-questions">Frequently asked questions<a class="headerlink" href="#frequently-asked-questions" title="Permanent link">&para;</a></h2>
+<details class="faq-item question">
+<summary>Which file formats does it support?</summary>
+<p>Binary .hwp (HWP 5.0) and XML .hwpx (OWPML). open_document() hands you the same editor either way — you never branch on format. open_document returns an HwpFile or HwpxFile depending on the file — both expose the same methods.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Do I need Hancom Office or Windows?</summary>
+<p>No. It needs no Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to 3.13. Linux, macOS, Windows, containers, Lambda. No Hancom, no pywin32, no COM, no LibreOffice subprocess. Tools such as python-docx, pdfplumber, unstructured and LibreOffice can't read HWP files, and the few that try need a Windows box with Hancom installed driving it over COM. pyhwpx, by contrast, automates the Hancom Office application over Windows COM, so it requires Windows and a Hancom installation and can't run on a Linux server, in CI, or in a container.</p>
+</details>
+
+<details class="faq-item question">
+<summary>How do I install it?</summary>
+<p>pip install hwpkit[full]. The base install needs only olefile, and [full] adds both lxml and Pillow. Python 3.9+.</p>
+</details>
+
+<details class="faq-item question">
+<summary>What licence is it under, and is the API stable?</summary>
+<p>It is MIT licensed and made by Ebenworks. Use it anywhere, commercially or not. The public API is committed to Semantic Versioning: no breaking changes without a 2.0.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Can it fill forms and insert seals or signatures?</summary>
+<p>Fill government &amp; university forms, tick checkboxes, rewrite cells — and the binary container is rebuilt while preserving the directory tree Hancom validates on open. Stamp a 도장/직인/서명 image into a form cell — into both .hwp and .hwpx.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Can I use it for RAG and LLM pipelines?</summary>
+<p>Clean Korean text out of any .hwp/.hwpx, ready to chunk and embed — the preprocessing step your retrieval pipeline was missing. Extraction strips inline controls (tables, images, footnote refs, autonumbers, page-number controls, bookmarks) and returns clean, one-line-per-paragraph text — table-cell content included — ready for chunkers, embeddings, or any context window.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Why does my edited HWP open as "corrupted"?</summary>
+<p>You probably edited a BodyText/Section0 stream whose byte length changed, then wrote it back through a naive CFB writer. The fix: read the original 128-byte directory records straight from the file (not through olefile's parsed view) and preserve their sid_left, sid_right, sid_child, and color fields byte-for-byte in the output. The tree topology is already valid; reusing it sidesteps the comparison-rule trap entirely.</p>
+</details>
+
+<details class="faq-item question">
+<summary>How is it different from pyhwp, pyhwpx and olefile?</summary>
+<p>hwpkit is the only option that reads, edits, and stamps images into both .hwp and .hwpx in portable, pure Python — no Hancom, no Windows, no COM bridge. olefile is a low-level MS-CFB container reader/writer: it can read raw HWP streams and rewrite a stream only if its byte length is unchanged, which it almost never is once you insert Korean text. If you need a full structural HWP→XML conversion, reach for pyhwp.</p>
+</details>
+
 <h2 id="next-steps">Next steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="quickstart/">Quickstart</a> — extract, edit, and stamp in a few lines.</li>
 <li><a href="comparison/">hwpkit vs alternatives</a> — how it compares to <code>pyhwp</code>,
   <code>pyhwpx</code>, and <code>olefile</code>.</li>
 <li><a href="api/">API reference</a> — every public function and class.</li>
-<li><a href="OBJECT_MODEL/">Internals</a> — how <code>.hwp</code> and <code>.hwpx</code> map onto one model.</li>
+<li><a href="OBJECT_MODEL/">Internals</a> — how both formats map onto one model.</li>
 </ul>
 <hr />
 <p>Made by <a href="https://ebenworks.co/">Ebenworks</a> · MIT licensed.</p>
@@ -1100,7 +1317,7 @@ the <strong>same methods</strong>.</p>
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Made by <a href="https://ebenworks.co/">Ebenworks</a> · MIT licensed
+      Made by <a href="https://ebenworks.co/">Ebenworks</a> · <a href="https://ebenworks.co/about">About Ebenworks</a> · MIT licensed
     </div>
   
   
