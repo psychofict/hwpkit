@@ -158,3 +158,16 @@ The fleet rules for `llms.txt`, the Organization node, page comments and the Abo
 - `docs/llms.txt` lists the pages. `overrides/main.html` carries the per-page JSON-LD, including the minimal Organization node for Ebenworks as maintainer.
 - The home page's H1 is a literal `<h1>`, because the table-of-contents extension appends a pilcrow to Markdown headings.
 - Pushing to `main` runs the docs workflow and publishes to GitHub Pages.
+
+### AI-answer files, FAQ and feed (2026-10-06)
+
+The home page was raised on the GEO audit (`geo audit --url https://hwpkit.ebenworks.co`) from 69 to a predicted 99 (the audit's own code run offline against a local build; check the live score once it is published).
+
+- **Generated files.** `docs/llms.txt`, `docs/llms-full.txt`, `docs/.well-known/ai.txt` and `docs/ai/{summary,faq,service}.json` are written by the Ebenworks workspace script `geo-files.py` from a local build of this site (`mkdocs build`, then any static server on the `site/` folder, then `geo-files.py hwpkit.ebenworks.co --out <dir> --source <server>`). Copy those six files only. Regenerate after any change to the docs copy and at least every 60 days. The script is not in this repository.
+- **`exclude_docs` in `mkdocs.yml`** lets `docs/.well-known/` through; MkDocs drops dot-folders by default. GitHub Pages serves it because `mkdocs gh-deploy` writes `.nojekyll`.
+- **The home FAQ lives in `docs/index.md`** as `<details class="faq-item question">` entries, one `<p>` of plain text each (no inline code or links, so the visible words, the `FAQPage` data and `ai/faq.json` stay identical). `hooks/geo.py` reads them back out of the rendered page and `overrides/main.html` emits the `FAQPage` node. Every sentence comes from this site's own pages. Keep it at eight entries or fewer.
+- **Stuffing margin.** The audit flags one word above 2.5% of the page's four-letter-plus words. On the home page the top words (`hwpx`, `hancom`) sit at about 2.3%. Adding prose that repeats "hwpkit", "HWPX" or "Hancom" without adding other text brings the penalty back. Two headings were reworded for this ("The problem it solves", "Why use it") and one Next steps line ("how both formats map onto one model").
+- **`dateModified`** is the date of the last commit to a page's source file (`hooks/geo.py`), never the build date. Without git history it is left out.
+- **`/feed.xml`** is built by the same hook from the blog posts' front matter dates. It is skipped if there are fewer than two posts.
+- **JSON-LD company and founder blocks** in `overrides/main.html` are copies of the record on the corporate site; change them only to match it.
+- **Not fixed:** Material's `md-overlay` and `md-search__overlay` class names count as a popup signal (1 point). `docs/robots.txt` now refuses the named training crawlers, while the docs are MIT licensed; revisit if that is not intended.

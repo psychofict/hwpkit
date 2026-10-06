@@ -10,8 +10,19 @@ site_author: Ebenworks
 repo_url: https://github.com/psychofict/hwpkit
 repo_name: psychofict/hwpkit
 edit_uri: edit/main/docs/
-# Material prints this in the footer of every page as raw HTML, so the link is visible site-wide.
-copyright: 'Made by <a href="https://ebenworks.co/">Ebenworks</a> · MIT licensed'
+# Material prints this in the footer of every page as raw HTML, so the links are visible site-wide.
+copyright: 'Made by <a href="https://ebenworks.co/">Ebenworks</a> · <a href="https://ebenworks.co/about">About Ebenworks</a> · MIT licensed'
+
+# MkDocs skips every file or folder whose name starts with a dot unless told otherwise.
+# /.well-known/ai.txt has to be published, so the dot rule stays and that folder is let back in.
+exclude_docs: |
+  .*
+  !/.well-known/
+  /templates/
+
+# Build-time helpers: the home FAQ's structured data, last-edited dates and /feed.xml.
+hooks:
+  - hooks/geo.py
 
 theme:
   name: material

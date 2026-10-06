@@ -18,7 +18,7 @@ Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to
 [View on GitHub](https://github.com/psychofict/hwpkit){ .md-button }
 [PyPI](https://pypi.org/project/hwpkit/){ .md-button }
 
-## The problem hwpkit solves
+## The problem it solves
 
 Korean government, universities, courts, and most Korean enterprises run on
 **HWP** (한글, Hangul Word Processor), the `.hwp` and `.hwpx` formats from
@@ -51,7 +51,7 @@ print(extract_text_from_file("계약서.hwp"))      # …or .hwpx — auto-detec
 
 That's it. No Hancom license. No Windows. No headless office server.
 
-## Why hwpkit
+## Why use it
 
 <div class="grid cards" markdown>
 
@@ -116,13 +116,55 @@ the **same methods**.
 - **Data engineers** migrating HWP archives to text / structured data.
 - **Anyone** who needs to edit a `.hwp` without clicking through Hancom.
 
+## Frequently asked questions
+
+<details class="faq-item question">
+<summary>Which file formats does it support?</summary>
+<p>Binary .hwp (HWP 5.0) and XML .hwpx (OWPML). open_document() hands you the same editor either way — you never branch on format. open_document returns an HwpFile or HwpxFile depending on the file — both expose the same methods.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Do I need Hancom Office or Windows?</summary>
+<p>No. It needs no Hancom install, no Windows and no COM automation, and it runs on Python 3.9 to 3.13. Linux, macOS, Windows, containers, Lambda. No Hancom, no pywin32, no COM, no LibreOffice subprocess. Tools such as python-docx, pdfplumber, unstructured and LibreOffice can't read HWP files, and the few that try need a Windows box with Hancom installed driving it over COM. pyhwpx, by contrast, automates the Hancom Office application over Windows COM, so it requires Windows and a Hancom installation and can't run on a Linux server, in CI, or in a container.</p>
+</details>
+
+<details class="faq-item question">
+<summary>How do I install it?</summary>
+<p>pip install hwpkit[full]. The base install needs only olefile, and [full] adds both lxml and Pillow. Python 3.9+.</p>
+</details>
+
+<details class="faq-item question">
+<summary>What licence is it under, and is the API stable?</summary>
+<p>It is MIT licensed and made by Ebenworks. Use it anywhere, commercially or not. The public API is committed to Semantic Versioning: no breaking changes without a 2.0.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Can it fill forms and insert seals or signatures?</summary>
+<p>Fill government &amp; university forms, tick checkboxes, rewrite cells — and the binary container is rebuilt while preserving the directory tree Hancom validates on open. Stamp a 도장/직인/서명 image into a form cell — into both .hwp and .hwpx.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Can I use it for RAG and LLM pipelines?</summary>
+<p>Clean Korean text out of any .hwp/.hwpx, ready to chunk and embed — the preprocessing step your retrieval pipeline was missing. Extraction strips inline controls (tables, images, footnote refs, autonumbers, page-number controls, bookmarks) and returns clean, one-line-per-paragraph text — table-cell content included — ready for chunkers, embeddings, or any context window.</p>
+</details>
+
+<details class="faq-item question">
+<summary>Why does my edited HWP open as "corrupted"?</summary>
+<p>You probably edited a BodyText/Section0 stream whose byte length changed, then wrote it back through a naive CFB writer. The fix: read the original 128-byte directory records straight from the file (not through olefile's parsed view) and preserve their sid_left, sid_right, sid_child, and color fields byte-for-byte in the output. The tree topology is already valid; reusing it sidesteps the comparison-rule trap entirely.</p>
+</details>
+
+<details class="faq-item question">
+<summary>How is it different from pyhwp, pyhwpx and olefile?</summary>
+<p>hwpkit is the only option that reads, edits, and stamps images into both .hwp and .hwpx in portable, pure Python — no Hancom, no Windows, no COM bridge. olefile is a low-level MS-CFB container reader/writer: it can read raw HWP streams and rewrite a stream only if its byte length is unchanged, which it almost never is once you insert Korean text. If you need a full structural HWP→XML conversion, reach for pyhwp.</p>
+</details>
+
 ## Next steps
 
 - [Quickstart](quickstart.md) — extract, edit, and stamp in a few lines.
 - [hwpkit vs alternatives](comparison.md) — how it compares to `pyhwp`,
   `pyhwpx`, and `olefile`.
 - [API reference](api.md) — every public function and class.
-- [Internals](OBJECT_MODEL.md) — how `.hwp` and `.hwpx` map onto one model.
+- [Internals](OBJECT_MODEL.md) — how both formats map onto one model.
 
 ---
 

@@ -43,16 +43,23 @@
   <meta name="twitter:image" content="{{ card }}">
 
   {#
-    Every page carries the company as a small, self-contained Organization node, and every
-    publisher/author field refers to that node's @id. Search engines read each page alone and
-    do not fetch an @id from another site, so a bare {"@id": ...} would resolve to nothing; the
-    same @id on several pages merges into one entity. The corporate site defines the full node
-    under this id. Deliberately no sameAs and nothing beyond name and url here.
+    Search and AI-answer data for every page.
+
+    The company and its founder are two separate top-level JSON-LD blocks, copied unchanged
+    from the record the Ebenworks corporate site publishes. They are separate because a node
+    nested inside another is not read on its own, and they sit on every page because search
+    engines read each page alone and do not fetch an @id from another site; the same @id on
+    several pages merges into one entity. Edit them only to match that record.
 
     SoftwareSourceCode is the honest type for a library: it carries the language, the licence
     and the repository, which is what a search engine can actually use to disambiguate "hwpkit"
     from a person's initials. TechArticle covers the docs page itself so each one is a distinct
-    thing rather than a fragment of the site. The home page also gets a WebSite node.
+    thing rather than a fragment of the site. The home page also gets a WebSite node and, from
+    its visible FAQ, a FAQPage node.
+
+    page.meta.faq and page.meta.modified are set by hooks/geo.py. The FAQ is read back from the
+    rendered home page, so the structured data repeats exactly what a visitor can read, and
+    dateModified is the date of the last commit to the page's source file, never the build date.
 
     The maintainer is Ebenworks, as the README ("Made by Ebenworks"), CLAUDE.md and
     site_author in mkdocs.yml all say. pyproject.toml lists the GitHub account name
@@ -60,25 +67,119 @@
     is not used here.
   #}
   {%- set org = "https://ebenworks.co/#organization" -%}
+  {%- set founder = "https://ebenworks.co/#founder" -%}
+  {%- set modified = page.meta.modified if page and page.meta else none -%}
+  {%- set faq = page.meta.faq if is_home and page and page.meta else none -%}
+
+  <link rel="alternate" type="application/rss+xml" title="{{ config.site_name }}" href="{{ config.site_url }}feed.xml">
+  {% if is_home %}
+  <link rel="alternate" hreflang="en" href="{{ page_url }}">
+  <link rel="alternate" hreflang="x-default" href="{{ page_url }}">
+  {% endif %}
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://ebenworks.co/#organization",
+  "name": "Ebenworks",
+  "alternateName": "Ebenworks Systems",
+  "legalName": "Ebenworks Systems (Private) Limited",
+  "url": "https://ebenworks.co",
+  "logo": "https://ebenworks.co/brand/logos/ebenworks-lockup.png",
+  "email": "contact@ebenworks.co",
+  "description": "An AI product company building practical software for businesses, care teams and communities.",
+  "foundingDate": "2026-05-29",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "13 Pembury Road, Paddonhurst",
+    "addressLocality": "Bulawayo",
+    "addressCountry": "ZW"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "business inquiries",
+    "email": "contact@ebenworks.co",
+    "url": "https://ebenworks.co/contact"
+  },
+  "areaServed": [
+    {
+      "@type": "Country",
+      "name": "South Africa",
+      "identifier": "ZA"
+    },
+    {
+      "@type": "Country",
+      "name": "Botswana",
+      "identifier": "BW"
+    },
+    {
+      "@type": "Country",
+      "name": "Nigeria",
+      "identifier": "NG"
+    },
+    {
+      "@type": "Country",
+      "name": "Kenya",
+      "identifier": "KE"
+    },
+    {
+      "@type": "Country",
+      "name": "Zimbabwe",
+      "identifier": "ZW"
+    },
+    {
+      "@type": "Country",
+      "name": "South Korea",
+      "identifier": "KR"
+    }
+  ],
+  "founder": {
+    "@id": "https://ebenworks.co/#founder"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/company/ebenworks",
+    "https://www.crunchbase.com/organization/ebenworks",
+    "https://github.com/ebenworks-systems",
+    "https://huggingface.co/ebenworks"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://ebenworks.co/#founder",
+  "name": "Ebenezer Tarubinga",
+  "alternateName": "Ebstar",
+  "jobTitle": "Founder, CEO & CTO",
+  "url": "https://ebstar.co",
+  "worksFor": {
+    "@id": "https://ebenworks.co/#organization"
+  },
+  "sameAs": [
+    "https://www.wikidata.org/wiki/Q108761295",
+    "https://www.linkedin.com/in/ebstar",
+    "https://github.com/psychofict",
+    "https://ebstar.co"
+  ]
+}
+  </script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "{{ org }}",
-        "name": "Ebenworks",
-        "url": "https://ebenworks.co/"
-      },
       {% if is_home %}
       {
         "@type": "WebSite",
         "@id": "{{ config.site_url }}#website",
         "name": {{ config.site_name | tojson }},
         "url": "{{ config.site_url }}",
-        "description": {{ config.site_description | tojson }},
+        "description": {{ page_desc | tojson }},
         "inLanguage": "en",
-        "publisher": { "@id": "{{ org }}" }
+        {% if modified %}"dateModified": "{{ modified }}",{% endif %}
+        "publisher": { "@id": "{{ org }}" },
+        "author": { "@id": "{{ founder }}" }
       },
       {% endif %}
       {
@@ -102,9 +203,31 @@
         "description": {{ page_desc | tojson }},
         "url": "{{ page_url }}",
         "inLanguage": "{% if page and page.meta and page.meta.lang %}{{ page.meta.lang }}{% else %}en{% endif %}",
+        {% if modified %}"dateModified": "{{ modified }}",{% endif %}
         "isPartOf": { "@id": "{{ config.site_url }}#library" },
+        "author": { "@id": "{{ org }}" },
         "publisher": { "@id": "{{ org }}" }
       }
+      {% if faq %}
+      ,{
+        "@type": "FAQPage",
+        "@id": "{{ config.site_url }}#faq",
+        "url": "{{ config.site_url }}#faq",
+        "name": "Frequently asked questions",
+        "inLanguage": "en",
+        {% if modified %}"dateModified": "{{ modified }}",{% endif %}
+        "isPartOf": { "@id": "{{ config.site_url }}#website" },
+        "mainEntity": [
+          {% for item in faq %}
+          {
+            "@type": "Question",
+            "name": {{ item.q | tojson }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | tojson }} }
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+      {% endif %}
     ]
   }
   </script>
