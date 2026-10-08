@@ -84,6 +84,12 @@ def on_page_context(context, page, config, nav):
 
 
 def on_post_build(config):
+    # Google never read /sitemap.xml after it was submitted on 2026-10-05, although it
+    # serves 200 and valid XML; the same file under a second name is submitted as well.
+    sitemap = Path(config.site_dir) / "sitemap.xml"
+    if sitemap.exists():
+        (Path(config.site_dir) / "sitemap-pages.xml").write_bytes(sitemap.read_bytes())
+
     posts = sorted(_posts.values(), key=lambda p: (p["date"], p["url"]), reverse=True)
     out = Path(config.site_dir) / "feed.xml"
     if len(posts) < 2:  # a feed of one entry is not worth advertising
