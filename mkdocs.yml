@@ -29,6 +29,8 @@ theme:
   # Adds Open Graph, Twitter cards and JSON-LD, which Material's base template
   # does not emit. See overrides/main.html.
   custom_dir: overrides
+  # hwpkit's own mark (the document icon from assets/logo.jpeg), not Material's generic book.
+  favicon: assets/images/favicon.png
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

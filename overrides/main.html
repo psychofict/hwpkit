@@ -16,6 +16,7 @@
 
 {% block extrahead %}
   {{ super() }}
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ config.site_url }}assets/images/apple-touch-icon.png">
 
   {#- The nav labels the home page "Home", and MkDocs prefers the nav label to the H1, so
       og:title, twitter:title and the schema headline all said "Home". The home page is
@@ -186,6 +187,7 @@
         "@type": "SoftwareSourceCode",
         "@id": "{{ config.site_url }}#library",
         "name": "hwpkit",
+        "image": "{{ config.site_url }}assets/images/hwpkit-mark-512.png",
         "description": {{ config.site_description | tojson }},
         "url": "{{ config.site_url }}",
         "codeRepository": "{{ config.repo_url }}",
