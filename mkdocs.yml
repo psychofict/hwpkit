@@ -113,3 +113,14 @@ extra:
     - icon: fontawesome/brands/python
       link: https://pypi.org/project/hwpkit/
       name: hwpkit on PyPI
+    # The maintainer's accounts (EBE-293, 9 October 2026), the same three every
+    # Ebenworks site's "Find us" row carries.
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/ebenworks
+      name: Ebenworks on LinkedIn
+    - icon: fontawesome/brands/instagram
+      link: https://www.instagram.com/ebenworks.co/
+      name: Ebenworks on Instagram
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UChUx7mbGTtumVd1VIaF4i5w
+      name: Ebenworks on YouTube
