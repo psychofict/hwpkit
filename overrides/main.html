@@ -17,6 +17,8 @@
 {% block extrahead %}
   {{ super() }}
   <link rel="apple-touch-icon" sizes="180x180" href="{{ config.site_url }}assets/images/apple-touch-icon.png">
+  {#- Naver Search Advisor ownership tag (Korea's main search engine), added 2026-10-12. #}
+  <meta name="naver-site-verification" content="c3c30017794b0d9b97b3b485cc72c1f329255ba4" />
 
   {#- The nav labels the home page "Home", and MkDocs prefers the nav label to the H1, so
       og:title, twitter:title and the schema headline all said "Home". The home page is
