@@ -130,8 +130,10 @@ a published GitHub Release** (never by a push). To cut a release:
 2. Validate before publishing: `python -m build` + `twine check dist/*` (and,
    if classifiers changed, check them against `trove-classifiers`). A clean-venv
    `pip install -e .[full]` + `pytest` catches metadata/import breakage.
-3. Commit to `main`, then `gh release create vX.Y.Z --target main` → this fires
-   `publish.yml`. PyPI versions are immutable — never reuse one.
+3. Commit to `main` and push it through `infra/scripts/ew-push.py` (the fleet's one
+   push tool; `infra/docs/FLEET.md`, "When GitHub is back"), then
+   `gh release create vX.Y.Z --target main` → this fires `publish.yml`. PyPI
+   versions are immutable — never reuse one.
 
 CI (`ci.yml`) runs the test matrix (Python 3.9–3.13) on push/PR and installs
 `.[full]` so the `.hwpx`/image tests actually run.
@@ -139,7 +141,8 @@ CI (`ci.yml`) runs the test matrix (Python 3.9–3.13) on push/PR and installs
 ## Docs site
 
 MkDocs Material (`mkdocs.yml` + `docs/`), deployed to the `gh-pages` branch via
-`docs.yml` on every push to `main` (`mkdocs gh-deploy`). `docs/CNAME` pins the
+`docs.yml` on every push to `main` (`mkdocs gh-deploy`), so a push to `main` publishes
+the site. `docs/CNAME` pins the
 custom domain `hwpkit.ebenworks.co`. The API reference is auto-generated from
 docstrings by `mkdocstrings` (so keep docstrings accurate). There's a blog
 (`docs/blog/`, Material blog plugin) for SEO posts; `docs/robots.txt` +
@@ -151,17 +154,16 @@ Never commit secrets. The PyPI account recovery-codes file pattern
 (`*Recovery-Codes*`), `*.pypirc`, and `.env` are gitignored; keep credentials
 out of the working tree entirely.
 
-## Search and AI visibility (2026-10-05)
+## Search and AI visibility
 
-The fleet rules for `llms.txt`, the Organization node, page comments and the About link are in the fleet block above. This is where they live in this repository.
+The fleet rules for `llms.txt`, the Organization node, page comments and the About link are in `infra/docs/FLEET.md`, section "Host checks". This is where they live in this repository.
 
 - `docs/llms.txt` lists the pages. `overrides/main.html` carries the per-page JSON-LD, including the minimal Organization node for Ebenworks as maintainer.
 - The home page's H1 is a literal `<h1>`, because the table-of-contents extension appends a pilcrow to Markdown headings.
-- Pushing to `main` runs the docs workflow and publishes to GitHub Pages.
 
-### AI-answer files, FAQ and feed (2026-10-06)
+### AI-answer files, FAQ and feed
 
-The home page was raised on the GEO audit (`geo audit --url https://hwpkit.ebenworks.co`) from 69 to a predicted 99 (the audit's own code run offline against a local build; check the live score once it is published).
+The target is 99 or more on `geo audit --url https://hwpkit.ebenworks.co`; run the audit's code offline against a local build first.
 
 - **Generated files.** `docs/llms.txt`, `docs/llms-full.txt`, `docs/.well-known/ai.txt` and `docs/ai/{summary,faq,service}.json` are written by the Ebenworks workspace script `geo-files.py` from a local build of this site (`mkdocs build`, then any static server on the `site/` folder, then `geo-files.py hwpkit.ebenworks.co --out <dir> --source <server>`). Copy those six files only. Regenerate after any change to the docs copy and at least every 60 days. The script is not in this repository.
 - **`exclude_docs` in `mkdocs.yml`** lets `docs/.well-known/` through; MkDocs drops dot-folders by default. GitHub Pages serves it because `mkdocs gh-deploy` writes `.nojekyll`.
@@ -170,4 +172,4 @@ The home page was raised on the GEO audit (`geo audit --url https://hwpkit.ebenw
 - **`dateModified`** is the date of the last commit to a page's source file (`hooks/geo.py`), never the build date. Without git history it is left out.
 - **`/feed.xml`** is built by the same hook from the blog posts' front matter dates. It is skipped if there are fewer than two posts.
 - **JSON-LD company and founder blocks** in `overrides/main.html` are copies of the record on the corporate site; change them only to match it.
-- **Not fixed:** Material's `md-overlay` and `md-search__overlay` class names count as a popup signal (1 point). `docs/robots.txt` now refuses the named training crawlers, while the docs are MIT licensed; revisit if that is not intended.
+- **Known:** Material's `md-overlay` and `md-search__overlay` class names count as a popup signal (1 point). `docs/robots.txt` refuses the named training crawlers although the docs are MIT licensed; crawler policy is set fleet-wide (`infra/docs/FLEET.md`, "Legal pages, ownership and crawler policy").
