@@ -10,7 +10,8 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # 24.04, not latest: setup-python has no Python 3.9 build for Ubuntu 26.04, and the package supports 3.9.
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
